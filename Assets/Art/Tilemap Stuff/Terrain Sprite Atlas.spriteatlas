@@ -15,7 +15,7 @@ SpriteAtlas:
       compressionQuality: 50
       maxTextureSize: 2048
       textureCompression: 0
-      filterMode: 1
+      filterMode: 0
       generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
@@ -43,6 +43,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
     - {fileID: 2800000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
     - {fileID: 2800000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
+    - {fileID: 2800000, guid: 2ca420036f9243f46be62e5351b98435, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -51,6 +52,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b8fc5620ff690c945b264007fdac90a1, type: 3}
   - {fileID: 21300000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
   - {fileID: 21300000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
+  - {fileID: 21300000, guid: 2ca420036f9243f46be62e5351b98435, type: 3}
   - {fileID: 21300000, guid: b34165a396fe88a428f62ce72d852b3c, type: 3}
   - {fileID: 21300000, guid: 075637c3ba8ad2b44a849661580a1604, type: 3}
   - {fileID: 21300000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
@@ -120,6 +122,7 @@ SpriteAtlas:
   - bigflowers_props
   - wood_slab_right
   - wood_slab_middle
+  - root_props
   - grass_props
   - door
   - wooden_plate
