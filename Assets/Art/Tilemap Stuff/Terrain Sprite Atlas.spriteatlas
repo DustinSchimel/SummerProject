@@ -32,11 +32,28 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
+    - {fileID: 2800000, guid: 6ae46ffd0f4900640bc5a2cd31eee5cb, type: 3}
+    - {fileID: 2800000, guid: e5e0b268c7ed4a74280312727499c7bc, type: 3}
+    - {fileID: 2800000, guid: b8fc5620ff690c945b264007fdac90a1, type: 3}
+    - {fileID: 2800000, guid: 075637c3ba8ad2b44a849661580a1604, type: 3}
+    - {fileID: 2800000, guid: 0f64229fd864c134abed27effb13339f, type: 3}
+    - {fileID: 2800000, guid: 98d7e03ad5bd9cd47bc21afa0a762457, type: 3}
+    - {fileID: 2800000, guid: b34165a396fe88a428f62ce72d852b3c, type: 3}
+    - {fileID: 2800000, guid: d3879eadcb2be5d449dee51fd9d32eec, type: 3}
+    - {fileID: 2800000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
+    - {fileID: 2800000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
+    - {fileID: 2800000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: b8fc5620ff690c945b264007fdac90a1, type: 3}
+  - {fileID: 21300000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
+  - {fileID: 21300000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
+  - {fileID: 21300000, guid: b34165a396fe88a428f62ce72d852b3c, type: 3}
+  - {fileID: 21300000, guid: 075637c3ba8ad2b44a849661580a1604, type: 3}
+  - {fileID: 21300000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
   - {fileID: -1138871135025990938, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
   - {fileID: -8358559315318606274, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
   - {fileID: 4735021615920746354, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
@@ -94,7 +111,18 @@ SpriteAtlas:
   - {fileID: 2043519646175482918, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
   - {fileID: 2497129968784242521, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
   - {fileID: 450781218489076797, guid: a9f2a4c6541074a44b579caea91a0220, type: 3}
+  - {fileID: 21300000, guid: e5e0b268c7ed4a74280312727499c7bc, type: 3}
+  - {fileID: 21300000, guid: 98d7e03ad5bd9cd47bc21afa0a762457, type: 3}
+  - {fileID: 21300000, guid: d3879eadcb2be5d449dee51fd9d32eec, type: 3}
+  - {fileID: 21300000, guid: 6ae46ffd0f4900640bc5a2cd31eee5cb, type: 3}
+  - {fileID: 21300000, guid: 0f64229fd864c134abed27effb13339f, type: 3}
   m_PackedSpriteNamesToIndex:
+  - bigflowers_props
+  - wood_slab_right
+  - wood_slab_middle
+  - grass_props
+  - door
+  - wooden_plate
   - tileset_64x64(new)_11
   - tileset_64x64(new)_10
   - tileset_64x64(new)_13
@@ -152,6 +180,11 @@ SpriteAtlas:
   - tileset_64x64(new)_50
   - tileset_64x64(new)_53
   - tileset_64x64(new)_52
+  - arrow_plate_right
+  - flowers_props
+  - wood_slab_left
+  - arrow_plate_left
+  - drygrass_props
   m_RenderDataMap: {}
   m_Tag: Terrain Sprite Atlas
   m_IsVariant: 0
