@@ -186,4 +186,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.down * rb.velocity.y * jumpCutMultiplier, ForceMode2D.Impulse);
         }
     }
+
+    public void DisableControls()
+    {
+        playerInputActions.Player.Disable();
+    }
+
+    public void EnableControls()
+    {
+        playerInputActions.Player.Enable();
+    }
 }
