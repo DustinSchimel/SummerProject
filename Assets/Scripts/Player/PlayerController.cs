@@ -61,6 +61,21 @@ public class PlayerController : MonoBehaviour
         if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer)) // checks to see if the player's ground hitbox is overlaping with the ground layer
         {
             lastGroundedTime = jumpCoyoteTime; //if so sets the lastGrounded to coyoteTime
+
+            animator.SetBool("JumpUp", false); // Disables jumping animations once player lands on ground
+            animator.SetBool("JumpDown", false);
+        }
+
+        if (rb.velocity.y > .5)
+        {
+            animator.SetBool("JumpUp", true); // Player is jumping up, so play the jump up animation
+            animator.SetBool("JumpDown", false); // Player is jumping up, so play the jump up animation
+        }
+
+        if (rb.velocity.y < -.5)
+        {
+            animator.SetBool("JumpDown", true); // Player is falling / jumping down, so play the jump down animation
+            animator.SetBool("JumpUp", false);
         }
 
         if (rb.velocity.y < 0)
