@@ -987,7 +987,7 @@ GameObject:
   - component: {fileID: 841998472}
   - component: {fileID: 841998477}
   - component: {fileID: 841998475}
-  - component: {fileID: 841998478}
+  - component: {fileID: 841998476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1109,6 +1109,25 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!95 &841998476
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841998471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 38f0b3031e6573942a2e7e441479c177, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &841998477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1135,25 +1154,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6585645, y: 0.90730083}
   m_EdgeRadius: 0
---- !u!95 &841998478
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841998471}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38f0b3031e6573942a2e7e441479c177, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1070595161
 GameObject:
   m_ObjectHideFlags: 0
@@ -16985,7 +16985,7 @@ Transform:
   m_GameObject: {fileID: 2102457291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.8, y: 5.55, z: 0}
-  m_LocalScale: {x: 54.177223, y: 54.177223, z: 54.177223}
+  m_LocalScale: {x: 56.135, y: 54.177223, z: 54.177223}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

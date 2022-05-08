@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     private Rigidbody2D rb;
     private PlayerInputActions playerInputActions;
+    private Animator animator;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         gravityScale = rb.gravityScale;
 
@@ -79,6 +81,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
+
+        #region Animation
+        animator.SetFloat("Speed", Mathf.Abs(moveInput.x)); // If player's speed is above 0, play the running animation
+        #endregion
 
         #region Run
         float targetSpeed = moveInput.x * moveSpeed;    //calculate the direction we want to move in and our desired velocity
