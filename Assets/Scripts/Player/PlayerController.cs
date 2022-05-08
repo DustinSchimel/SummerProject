@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Animator animator;
 
+    [Header("Direction")]
+    public bool facingRight;
+
     [Header("Movement")]
     public float moveSpeed;
     public float acceleration;
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        facingRight = true;
 
         gravityScale = rb.gravityScale;
 
@@ -82,6 +86,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
+        #region Direction
+        if (moveInput.x > 0 && !facingRight)    // Player is moving towards the right and isn't facing right
+        {
+            Flip();
+        }
+        else if (moveInput.x < 0 && facingRight)    // Player is moving towards the left and isn't facing left
+        {
+            Flip();
+        }
+        #endregion
+
         #region Animation
         animator.SetFloat("Speed", Mathf.Abs(moveInput.x)); // If player's speed is above 0, play the running animation
         #endregion
@@ -115,6 +130,15 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = gravityScale;
         }
         #endregion
+    }
+
+    private void Flip()
+    {
+        Vector2 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
     }
 
     private void Jump(InputAction.CallbackContext context)
