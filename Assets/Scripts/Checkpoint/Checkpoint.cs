@@ -36,11 +36,11 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.gameObject.layer == 8)    // Player has entered the checkpoint
         {
-            PlayerStats playerStats = collision.gameObject.GetComponent<PlayerStats>();
+            RespawnPoint respawnPointScript = collision.gameObject.GetComponent<RespawnPoint>();
 
-            if (checkpointNumber > playerStats.GetCurrentCheckpoint())  // If this checkpoint has a higher number (is further in the level) than the player's current checkpoint, set it as their new one
+            if (checkpointNumber > respawnPointScript.GetCurrentCheckpoint())  // If this checkpoint has a higher number (is further in the level) than the player's current checkpoint, set it as their new one
             {
-                playerStats.SetCurrentCheckpoint(checkpointNumber, respawnLocation, gameObject);
+                respawnPointScript.SetCurrentCheckpoint(checkpointNumber, respawnLocation, gameObject);
                 EnableAnimation();
             }
         }

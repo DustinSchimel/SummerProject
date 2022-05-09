@@ -16,8 +16,6 @@ public class PlayerStats : MonoBehaviour
     [Header("Other Variables")]
     public float respawnTime = 1f;
     private bool respawning = false;
-    private int currentCheckpoint;
-    private GameObject currentCheckpointObject;
 
     void Start()
     {
@@ -25,7 +23,6 @@ public class PlayerStats : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         gravityScale = rb.gravityScale;
-        currentCheckpoint = 0;
     }
 
     void Update()
@@ -68,9 +65,7 @@ public class PlayerStats : MonoBehaviour
         yield return new WaitForSeconds(respawnTime);
 
         respawnPoint = rb.GetComponent<RespawnPoint>().respawnPoint;    // Updates the saved respawn point if the player's respawn point changed
-        Vector2 tempPos = new Vector2(respawnPoint.position.x, respawnPoint.position.y + .005f);
-        //rb.gameObject.transform.position = respawnPoint.position;   // Teleport the player
-        rb.gameObject.transform.position = tempPos;
+        rb.gameObject.transform.position = new Vector2(respawnPoint.position.x, respawnPoint.position.y + .005f);   // Teleports the player, and fixes issue with not being able to jump after death
         rb.position = respawnPoint.position;
 
         animator.SetBool("Death", false);
@@ -82,22 +77,5 @@ public class PlayerStats : MonoBehaviour
 
         HP = 1;
         respawning = false;
-    }
-
-    public void SetCurrentCheckpoint(int checkpoint, Transform checkpointPoint, GameObject currentCheckObj)
-    {
-        if (currentCheckpointObject != null)
-        {
-            currentCheckpointObject.gameObject.GetComponent<Checkpoint>().DisableAnimation();
-        }
-
-        currentCheckpointObject = currentCheckObj;
-        currentCheckpoint = checkpoint;
-        rb.GetComponent<RespawnPoint>().respawnPoint = checkpointPoint;
-    }
-
-    public int GetCurrentCheckpoint()
-    {
-        return currentCheckpoint;
     }
 }
