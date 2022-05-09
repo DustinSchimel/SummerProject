@@ -61,12 +61,6 @@ public class PlayerStats : MonoBehaviour
 
             // Make player invincible for a few seconds if they're still alive
         }
-        /*
-        else if (collision.gameObject.layer == 7)   // Checkpoints
-        {
-            Debug.Log("Entered checkpoint");
-        }
-        */
     }
 
     IEnumerator RespawnPlayer()
@@ -74,7 +68,9 @@ public class PlayerStats : MonoBehaviour
         yield return new WaitForSeconds(respawnTime);
 
         respawnPoint = rb.GetComponent<RespawnPoint>().respawnPoint;    // Updates the saved respawn point if the player's respawn point changed
-        rb.gameObject.transform.position = respawnPoint.position;   // Teleport the player
+        Vector2 tempPos = new Vector2(respawnPoint.position.x, respawnPoint.position.y + .005f);
+        //rb.gameObject.transform.position = respawnPoint.position;   // Teleport the player
+        rb.gameObject.transform.position = tempPos;
         rb.position = respawnPoint.position;
 
         animator.SetBool("Death", false);
