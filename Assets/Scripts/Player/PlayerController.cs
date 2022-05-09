@@ -199,7 +199,6 @@ public class PlayerController : MonoBehaviour
 
     public void setGravity(float gravity)
     {
-        //rb.gravityScale = gravity;
         gravityScale = gravity;
     }
 }
