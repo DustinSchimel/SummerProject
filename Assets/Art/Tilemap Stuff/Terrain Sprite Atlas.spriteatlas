@@ -51,11 +51,12 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 0f64229fd864c134abed27effb13339f, type: 3}
     - {fileID: 2800000, guid: 98d7e03ad5bd9cd47bc21afa0a762457, type: 3}
     - {fileID: 2800000, guid: b34165a396fe88a428f62ce72d852b3c, type: 3}
-    - {fileID: 2800000, guid: d3879eadcb2be5d449dee51fd9d32eec, type: 3}
-    - {fileID: 2800000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
-    - {fileID: 2800000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
-    - {fileID: 2800000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
     - {fileID: 2800000, guid: 2ca420036f9243f46be62e5351b98435, type: 3}
+    - {fileID: 2800000, guid: 3805f20f80354f14a9d66a59120a3141, type: 3}
+    - {fileID: 2800000, guid: d3879eadcb2be5d449dee51fd9d32eec, type: 3}
+    - {fileID: 2800000, guid: 0cc944c228f3f3446b8fd5b22949ccd2, type: 3}
+    - {fileID: 2800000, guid: ce6716b24a6ca5f478c9ed8429ad130e, type: 3}
+    - {fileID: 2800000, guid: 00352b04566eb6343926e1641f651a29, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -129,6 +130,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 98d7e03ad5bd9cd47bc21afa0a762457, type: 3}
   - {fileID: 21300000, guid: d3879eadcb2be5d449dee51fd9d32eec, type: 3}
   - {fileID: 21300000, guid: 6ae46ffd0f4900640bc5a2cd31eee5cb, type: 3}
+  - {fileID: 21300000, guid: 3805f20f80354f14a9d66a59120a3141, type: 3}
   - {fileID: 21300000, guid: 0f64229fd864c134abed27effb13339f, type: 3}
   m_PackedSpriteNamesToIndex:
   - bigflowers_props
@@ -199,6 +201,7 @@ SpriteAtlas:
   - flowers_props
   - wood_slab_left
   - arrow_plate_left
+  - spikes
   - drygrass_props
   m_RenderDataMap: {}
   m_Tag: Terrain Sprite Atlas
