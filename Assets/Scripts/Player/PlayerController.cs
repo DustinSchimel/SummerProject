@@ -196,4 +196,10 @@ public class PlayerController : MonoBehaviour
     {
         playerInputActions.Player.Enable();
     }
+
+    public void setGravity(float gravity)
+    {
+        //rb.gravityScale = gravity;
+        gravityScale = gravity;
+    }
 }

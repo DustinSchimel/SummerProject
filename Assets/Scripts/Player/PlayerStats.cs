@@ -11,8 +11,10 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Stats")]
     public int HP = 1;
+    private float gravityScale;
 
     [Header("Other Variables")]
+    public float respawnTime = 1f;
     private bool respawning = false;
 
     void Start()
@@ -20,6 +22,7 @@ public class PlayerStats : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        gravityScale = rb.gravityScale;
     }
 
     void Update()
@@ -31,6 +34,8 @@ public class PlayerStats : MonoBehaviour
                 respawning = true;
 
                 playerController.DisableControls();
+                rb.velocity = Vector2.zero;
+                playerController.setGravity(0f);
 
                 // Play death particle
                 animator.SetBool("JumpUp", false);
@@ -39,7 +44,7 @@ public class PlayerStats : MonoBehaviour
 
                 StartCoroutine(RespawnPlayer());
 
-                // Make the screen transition to black
+                // Make the screen transition to black (maybe do this)
             }
         }
     }
@@ -57,7 +62,7 @@ public class PlayerStats : MonoBehaviour
 
     IEnumerator RespawnPlayer()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(respawnTime);
 
         respawnPoint = rb.GetComponent<RespawnPoint>().respawnPoint;    // Updates the saved respawn point if the player's respawn point changed
         rb.gameObject.transform.position = respawnPoint.position;   // Teleport the player
@@ -65,8 +70,9 @@ public class PlayerStats : MonoBehaviour
 
         animator.SetBool("Death", false);
 
-        // Fade away from the black
+        // Fade away from the black (maybe do this)
 
+        playerController.setGravity(gravityScale);
         playerController.EnableControls();
 
         HP = 1;
