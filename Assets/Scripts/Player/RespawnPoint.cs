@@ -13,6 +13,4 @@ public class RespawnPoint : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         respawnPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
     }
-
-    // Add methods that update the respawn point when the player reaches checkpoints
 }

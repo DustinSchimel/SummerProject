@@ -16,6 +16,8 @@ public class PlayerStats : MonoBehaviour
     [Header("Other Variables")]
     public float respawnTime = 1f;
     private bool respawning = false;
+    private int currentCheckpoint;
+    private GameObject currentCheckpointObject;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerStats : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         gravityScale = rb.gravityScale;
+        currentCheckpoint = 0;
     }
 
     void Update()
@@ -58,6 +61,12 @@ public class PlayerStats : MonoBehaviour
 
             // Make player invincible for a few seconds if they're still alive
         }
+        /*
+        else if (collision.gameObject.layer == 7)   // Checkpoints
+        {
+            Debug.Log("Entered checkpoint");
+        }
+        */
     }
 
     IEnumerator RespawnPlayer()
@@ -77,5 +86,22 @@ public class PlayerStats : MonoBehaviour
 
         HP = 1;
         respawning = false;
+    }
+
+    public void SetCurrentCheckpoint(int checkpoint, Transform checkpointPoint, GameObject currentCheckObj)
+    {
+        if (currentCheckpointObject != null)
+        {
+            currentCheckpointObject.gameObject.GetComponent<Checkpoint>().DisableAnimation();
+        }
+
+        currentCheckpointObject = currentCheckObj;
+        currentCheckpoint = checkpoint;
+        rb.GetComponent<RespawnPoint>().respawnPoint = checkpointPoint;
+    }
+
+    public int GetCurrentCheckpoint()
+    {
+        return currentCheckpoint;
     }
 }
