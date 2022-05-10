@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
         playerInputActions.PauseMenu.SelectOption.performed += SelectOption;
         playerInputActions.PauseMenu.Resume.performed += Resume;
 
+        Time.timeScale = 0f;
         optionSelected = 0;
         resumeButton.Select();
     }
@@ -140,6 +141,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnDisable()
     {
+        Time.timeScale = 1f;
         playerInputActions.PauseMenu.Disable();
     }
 }

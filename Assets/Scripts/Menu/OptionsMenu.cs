@@ -27,6 +27,7 @@ public class OptionsMenu : MonoBehaviour
         playerInputActions.OptionsScreen.VolumeUp.performed += VolumeUp;
         playerInputActions.OptionsScreen.VolumeDown.performed += VolumeDown;
 
+        Time.timeScale = 0f;
         optionSelected = 0;
         sfxSlider.Select();
     }
@@ -119,6 +120,13 @@ public class OptionsMenu : MonoBehaviour
 
     public void OnDisable()
     {
+        Time.timeScale = 1f;
         playerInputActions.OptionsScreen.Disable();
+        // Save volume
+    }
+
+    public void SetVolume(float volume)
+    {
+        //audioMixer.SetFloat("Volume", volume);
     }
 }

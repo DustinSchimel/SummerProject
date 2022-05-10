@@ -143,6 +143,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnDisable()
     {
+        optionSelected = 0;
         playerInputActions.TitleScreen.Disable();
     }
 }
