@@ -844,6 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca983af80cbfb3346b33785425fade72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 995204085}
   pauseMenu: {fileID: 333893215}
   resumeButton: {fileID: 1612980598}
   settingsButton: {fileID: 642913469}
@@ -2100,6 +2101,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5707b423ad44ade4da80cb8fb900379b, type: 3}
+--- !u!114 &995204085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5949363088032928969, guid: 0c6650942a311f84e80aa03e21ae2cb3, type: 3}
+  m_PrefabInstance: {fileID: 5949363087586129411}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d3540381f516645aa3290adf200cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1025727126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7143139712651434663, guid: 5707b423ad44ade4da80cb8fb900379b, type: 3}

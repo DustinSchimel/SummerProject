@@ -649,6 +649,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Resume"",
+                    ""type"": ""Button"",
+                    ""id"": ""96031d3e-51f0-4caa-a1c0-bcc199b499f8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -761,6 +770,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cf5288b-650b-4850-847a-762121d4a1a9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Resume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cde0fb27-5514-493b-adb6-229fff8d55ff"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Resume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -812,6 +843,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PauseMenu_MoveUp = m_PauseMenu.FindAction("MoveUp", throwIfNotFound: true);
         m_PauseMenu_MoveDown = m_PauseMenu.FindAction("MoveDown", throwIfNotFound: true);
         m_PauseMenu_SelectOption = m_PauseMenu.FindAction("SelectOption", throwIfNotFound: true);
+        m_PauseMenu_Resume = m_PauseMenu.FindAction("Resume", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1037,6 +1069,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PauseMenu_MoveUp;
     private readonly InputAction m_PauseMenu_MoveDown;
     private readonly InputAction m_PauseMenu_SelectOption;
+    private readonly InputAction m_PauseMenu_Resume;
     public struct PauseMenuActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1044,6 +1077,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @MoveUp => m_Wrapper.m_PauseMenu_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_PauseMenu_MoveDown;
         public InputAction @SelectOption => m_Wrapper.m_PauseMenu_SelectOption;
+        public InputAction @Resume => m_Wrapper.m_PauseMenu_Resume;
         public InputActionMap Get() { return m_Wrapper.m_PauseMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1062,6 +1096,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SelectOption.started -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnSelectOption;
                 @SelectOption.performed -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnSelectOption;
                 @SelectOption.canceled -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnSelectOption;
+                @Resume.started -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnResume;
+                @Resume.performed -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnResume;
+                @Resume.canceled -= m_Wrapper.m_PauseMenuActionsCallbackInterface.OnResume;
             }
             m_Wrapper.m_PauseMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -1075,6 +1112,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SelectOption.started += instance.OnSelectOption;
                 @SelectOption.performed += instance.OnSelectOption;
                 @SelectOption.canceled += instance.OnSelectOption;
+                @Resume.started += instance.OnResume;
+                @Resume.performed += instance.OnResume;
+                @Resume.canceled += instance.OnResume;
             }
         }
     }
@@ -1122,5 +1162,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
         void OnSelectOption(InputAction.CallbackContext context);
+        void OnResume(InputAction.CallbackContext context);
     }
 }

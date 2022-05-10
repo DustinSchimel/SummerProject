@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("References")]
     private PlayerInputActions playerInputActions;
-    private PlayerController playerController;
+    public PlayerController playerController;
     public GameObject pauseMenu;
 
     public Button resumeButton;
@@ -17,17 +18,15 @@ public class PauseMenu : MonoBehaviour
     [Header("Values")]
     private int optionSelected;
 
-    public void OnEnabled()
+    public void Start()
     {
-        Debug.Log("Pause menu enabled");
-        playerController = GetComponent<PlayerController>();
-
         playerInputActions = new PlayerInputActions();
 
         playerInputActions.PauseMenu.Enable();
         playerInputActions.PauseMenu.MoveUp.performed += MoveUp;
         playerInputActions.PauseMenu.MoveDown.performed += MoveDown;
         playerInputActions.PauseMenu.SelectOption.performed += SelectOption;
+        playerInputActions.PauseMenu.Resume.performed += Resume;
 
         optionSelected = 0;
         resumeButton.Select();
@@ -103,12 +102,19 @@ public class PauseMenu : MonoBehaviour
         }
         else if (optionSelected == 2)   // 'Menu Button' is selected
         {
-            // load main menu
+            playerInputActions.PauseMenu.Disable();
+            SceneManager.LoadScene(0);
         }
         else if (optionSelected == 3)   // 'Quit Button' is selected
         {
             Application.Quit();
         }
+    }
+
+    public void Resume(InputAction.CallbackContext context)
+    {
+        playerController.EnableControls();
+        pauseMenu.SetActive(false);
     }
 
     public void Resume()
