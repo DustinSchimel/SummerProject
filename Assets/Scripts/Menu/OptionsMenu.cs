@@ -16,6 +16,8 @@ public class OptionsMenu : MonoBehaviour
     [Header("Values")]
     private int optionSelected;
     public float volumeSliderValue = .2f;
+    private float savedSfxVolume;
+    private float savedMusicVolume;
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {
@@ -26,6 +28,22 @@ public class OptionsMenu : MonoBehaviour
         playerInputActions.OptionsScreen.SelectOption.performed += SelectOption;
         playerInputActions.OptionsScreen.VolumeUp.performed += VolumeUp;
         playerInputActions.OptionsScreen.VolumeDown.performed += VolumeDown;
+
+        if (PlayerPrefs.HasKey("sfxVolume"))
+        {
+            Debug.Log("Saved volume found");
+            savedSfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+            savedMusicVolume = PlayerPrefs.GetFloat("musicVolume");
+        }
+        else
+        {
+            Debug.Log("No saved volume found");
+            savedSfxVolume = sfxSlider.value;
+            savedMusicVolume = musicSlider.value;
+        }
+
+        sfxSlider.value = savedSfxVolume;
+        musicSlider.value = savedMusicVolume;
 
         Time.timeScale = 0f;
         optionSelected = 0;
@@ -122,11 +140,20 @@ public class OptionsMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         playerInputActions.OptionsScreen.Disable();
+
         // Save volume
+        Debug.Log("Saving volume");
+        PlayerPrefs.SetFloat("sfxVolume", savedSfxVolume);
+        PlayerPrefs.SetFloat("musicVolume", savedMusicVolume);
     }
 
-    public void SetVolume(float volume)
+    public void SetSfxVolume(float volume)
     {
-        //audioMixer.SetFloat("Volume", volume);
+        savedSfxVolume = volume;
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        savedMusicVolume = volume;
     }
 }
