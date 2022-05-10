@@ -211,15 +211,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MoveLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""9fe80bb0-4e9f-4800-b821-c257d60ee1f8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,7 +220,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""MoveUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -240,7 +231,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fce76d9-7e4d-4f23-b976-4d764a644eb4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""MoveUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -251,7 +253,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -262,7 +264,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1b044ed-2018-49f7-bfac-3732cc06e191"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -273,7 +286,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<SwitchProControllerHID>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -284,7 +297,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -295,19 +308,19 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d52160f7-0961-419b-92f2-0f7d5ff1c3ea"",
-                    ""path"": """",
+                    ""id"": ""d1c6eed3-160f-401c-9e0b-d2a918cb2d43"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveLeft"",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -370,7 +383,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""MoveUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -381,7 +394,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34e914c9-f906-4dea-9b51-3c60d3d5ee30"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""MoveUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -392,7 +416,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -403,7 +427,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c846d74-3370-4ae7-909e-beb94b50abbb"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -414,7 +449,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<SwitchProControllerHID>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -425,7 +460,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -436,7 +471,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""SelectOption"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddd642bc-18a7-4dad-bccb-a22d62a4aa20"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""SelectOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -447,7 +493,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""VolumeUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -458,7 +504,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""972c783d-ed8c-4acb-8c76-01f6e96dddac"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""VolumeUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -469,7 +526,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""VolumeDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -480,7 +537,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d522de1-2d79-4ad1-b7d6-a217fea3debd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""VolumeDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -528,7 +596,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_TitleScreen_MoveUp = m_TitleScreen.FindAction("MoveUp", throwIfNotFound: true);
         m_TitleScreen_MoveDown = m_TitleScreen.FindAction("MoveDown", throwIfNotFound: true);
         m_TitleScreen_SelectOption = m_TitleScreen.FindAction("SelectOption", throwIfNotFound: true);
-        m_TitleScreen_MoveLeft = m_TitleScreen.FindAction("MoveLeft", throwIfNotFound: true);
         // OptionsScreen
         m_OptionsScreen = asset.FindActionMap("OptionsScreen", throwIfNotFound: true);
         m_OptionsScreen_MoveUp = m_OptionsScreen.FindAction("MoveUp", throwIfNotFound: true);
@@ -641,7 +708,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_TitleScreen_MoveUp;
     private readonly InputAction m_TitleScreen_MoveDown;
     private readonly InputAction m_TitleScreen_SelectOption;
-    private readonly InputAction m_TitleScreen_MoveLeft;
     public struct TitleScreenActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -649,7 +715,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @MoveUp => m_Wrapper.m_TitleScreen_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_TitleScreen_MoveDown;
         public InputAction @SelectOption => m_Wrapper.m_TitleScreen_SelectOption;
-        public InputAction @MoveLeft => m_Wrapper.m_TitleScreen_MoveLeft;
         public InputActionMap Get() { return m_Wrapper.m_TitleScreen; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -668,9 +733,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SelectOption.started -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnSelectOption;
                 @SelectOption.performed -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnSelectOption;
                 @SelectOption.canceled -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnSelectOption;
-                @MoveLeft.started -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnMoveLeft;
-                @MoveLeft.performed -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnMoveLeft;
-                @MoveLeft.canceled -= m_Wrapper.m_TitleScreenActionsCallbackInterface.OnMoveLeft;
             }
             m_Wrapper.m_TitleScreenActionsCallbackInterface = instance;
             if (instance != null)
@@ -684,9 +746,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SelectOption.started += instance.OnSelectOption;
                 @SelectOption.performed += instance.OnSelectOption;
                 @SelectOption.canceled += instance.OnSelectOption;
-                @MoveLeft.started += instance.OnMoveLeft;
-                @MoveLeft.performed += instance.OnMoveLeft;
-                @MoveLeft.canceled += instance.OnMoveLeft;
             }
         }
     }
@@ -809,7 +868,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
         void OnSelectOption(InputAction.CallbackContext context);
-        void OnMoveLeft(InputAction.CallbackContext context);
     }
     public interface IOptionsScreenActions
     {
