@@ -116,4 +116,9 @@ public class OptionsMenu : MonoBehaviour
             musicSlider.value = musicSlider.value + volumeSliderValue;
         }
     }
+
+    public void OnDisable()
+    {
+        playerInputActions.OptionsScreen.Disable();
+    }
 }

@@ -140,4 +140,9 @@ public class MainMenu : MonoBehaviour
             QuitGame();
         }
     }
+
+    public void OnDisable()
+    {
+        playerInputActions.TitleScreen.Disable();
+    }
 }

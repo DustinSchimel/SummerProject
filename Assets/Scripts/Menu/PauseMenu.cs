@@ -105,12 +105,11 @@ public class PauseMenu : MonoBehaviour
         }
         else if (optionSelected == 2)   // 'Menu Button' is selected
         {
-            playerInputActions.PauseMenu.Disable();
-            SceneManager.LoadScene(0);
+            LoadMainMenu();
         }
         else if (optionSelected == 3)   // 'Quit Button' is selected
         {
-            Application.Quit();
+            QuitGame();
         }
     }
 
@@ -126,5 +125,21 @@ public class PauseMenu : MonoBehaviour
         playerInputActions.PauseMenu.Disable();
         playerController.EnableControls();
         pauseMenu.SetActive(false);
+    }
+
+    public void LoadMainMenu()
+    {
+        playerInputActions.PauseMenu.Disable();
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void OnDisable()
+    {
+        playerInputActions.PauseMenu.Disable();
     }
 }
