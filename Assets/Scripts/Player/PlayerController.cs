@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    public GameObject pauseMenu;
     private Rigidbody2D rb;
     private PlayerInputActions playerInputActions;
     private Animator animator;
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.performed += JumpPressed;
         playerInputActions.Player.Jump.canceled += JumpReleased;
+        playerInputActions.Player.Pause.performed += Pause;
     }
 
     private void Update()
@@ -200,5 +202,11 @@ public class PlayerController : MonoBehaviour
     public void setGravity(float gravity)
     {
         gravityScale = gravity;
+    }
+
+    private void Pause(InputAction.CallbackContext context)
+    {
+        playerInputActions.Player.Disable();
+        pauseMenu.SetActive(true);
     }
 }
