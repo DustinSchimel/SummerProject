@@ -15,7 +15,7 @@ public class OptionsMenu : MonoBehaviour
 
     [Header("Values")]
     private int optionSelected;
-    public float volumeSliderValue = 5;
+    public float volumeSliderValue = .2f;
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {

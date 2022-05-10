@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     private PlayerInputActions playerInputActions;
     public PlayerController playerController;
     public GameObject pauseMenu;
+    public GameObject optionsMenu;
 
     public Button resumeButton;
     public Button settingsButton;
@@ -18,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Values")]
     private int optionSelected;
 
-    public void Start()
+    public void OnEnable()
     {
         playerInputActions = new PlayerInputActions();
 
@@ -98,7 +99,9 @@ public class PauseMenu : MonoBehaviour
         }
         else if (optionSelected == 1)   // 'Settings Button' is selected
         {
-            // open settings
+            playerInputActions.PauseMenu.Disable();
+            optionsMenu.SetActive(true);    // Enables the options menu
+            pauseMenu.SetActive(false);    // Disables the pause menu
         }
         else if (optionSelected == 2)   // 'Menu Button' is selected
         {
@@ -113,12 +116,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume(InputAction.CallbackContext context)
     {
+        playerInputActions.PauseMenu.Disable();
         playerController.EnableControls();
         pauseMenu.SetActive(false);
     }
 
     public void Resume()
     {
+        playerInputActions.PauseMenu.Disable();
         playerController.EnableControls();
         pauseMenu.SetActive(false);
     }
