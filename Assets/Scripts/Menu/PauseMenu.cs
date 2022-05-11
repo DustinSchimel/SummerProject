@@ -101,8 +101,9 @@ public class PauseMenu : MonoBehaviour
         else if (optionSelected == 1)   // 'Settings Button' is selected
         {
             playerInputActions.PauseMenu.Disable();
-            optionsMenu.SetActive(true);    // Enables the options menu
             pauseMenu.SetActive(false);    // Disables the pause menu
+            optionsMenu.SetActive(true);    // Enables the options menu
+            //pauseMenu.SetActive(false);    // Disables the pause menu
         }
         else if (optionSelected == 2)   // 'Menu Button' is selected
         {

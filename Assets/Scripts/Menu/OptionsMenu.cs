@@ -31,13 +31,11 @@ public class OptionsMenu : MonoBehaviour
 
         if (PlayerPrefs.HasKey("sfxVolume"))
         {
-            Debug.Log("Saved volume found");
             savedSfxVolume = PlayerPrefs.GetFloat("sfxVolume");
             savedMusicVolume = PlayerPrefs.GetFloat("musicVolume");
         }
         else
         {
-            Debug.Log("No saved volume found");
             savedSfxVolume = sfxSlider.value;
             savedMusicVolume = musicSlider.value;
         }
@@ -45,6 +43,8 @@ public class OptionsMenu : MonoBehaviour
         sfxSlider.value = savedSfxVolume;
         musicSlider.value = savedMusicVolume;
 
+
+        Debug.Log("Freezing time");
         Time.timeScale = 0f;
         optionSelected = 0;
         sfxSlider.Select();
@@ -138,11 +138,10 @@ public class OptionsMenu : MonoBehaviour
 
     public void OnDisable()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         playerInputActions.OptionsScreen.Disable();
 
         // Save volume
-        Debug.Log("Saving volume");
         PlayerPrefs.SetFloat("sfxVolume", savedSfxVolume);
         PlayerPrefs.SetFloat("musicVolume", savedMusicVolume);
     }
