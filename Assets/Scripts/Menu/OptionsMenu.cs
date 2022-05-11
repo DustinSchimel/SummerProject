@@ -12,6 +12,7 @@ public class OptionsMenu : MonoBehaviour
 
     public Slider sfxSlider;
     public Slider musicSlider;
+    public Toggle fullScreenToggle;
     public Button backButton;
 
     [Header("Values")]
@@ -29,6 +30,15 @@ public class OptionsMenu : MonoBehaviour
         playerInputActions.OptionsScreen.SelectOption.performed += SelectOption;
         playerInputActions.OptionsScreen.VolumeUp.performed += VolumeUp;
         playerInputActions.OptionsScreen.VolumeDown.performed += VolumeDown;
+
+        if(Screen.fullScreen == true)
+        {
+            fullScreenToggle.isOn = true;
+        }
+        else if (Screen.fullScreen == false)
+        {
+            fullScreenToggle.isOn = false;
+        }
 
         if (PlayerPrefs.HasKey("sfxVolume"))
         {
@@ -65,12 +75,19 @@ public class OptionsMenu : MonoBehaviour
 
             optionSelected = 0;
         }
-        else if (optionSelected == 2)   // 'Back Button' is selected
+        else if (optionSelected == 2)   // 'Fullscreen Toggle' is selected
         {
             // Enable 'Music Volume' selection
             musicSlider.Select();
 
             optionSelected = 1;
+        }
+        else if (optionSelected == 3)   // 'Back Button' is selected
+        {
+            // Enable 'Fullsceen Toggle' selection
+            fullScreenToggle.Select();
+
+            optionSelected = 2;
         }
     }
 
@@ -85,12 +102,19 @@ public class OptionsMenu : MonoBehaviour
         }
         else if (optionSelected == 1)    // 'Music Volume' is selected
         {
-            // Enable 'Back' selection
-            backButton.Select();
+            // Enable 'Fullscreen toggle' selection
+            fullScreenToggle.Select();
 
             optionSelected = 2;
         }
-        else if (optionSelected == 2)    // 'Back Button' is selected
+        else if (optionSelected == 2)    // 'Fullscreen Toggle' is selected
+        {
+            // Enable 'Back' selection
+            backButton.Select();
+
+            optionSelected = 3;
+        }
+        else if (optionSelected == 3)    // 'Back Button' is selected
         {
             // Do nothing
         }
@@ -106,7 +130,18 @@ public class OptionsMenu : MonoBehaviour
         {
             // Do nothing
         }
-        else if (optionSelected == 2)   // 'Back Button' is selected
+        else if (optionSelected == 2)   // 'Fullscreen Toggle' is selected
+        {
+            if (fullScreenToggle.isOn)
+            {
+                fullScreenToggle.isOn = false;
+            }
+            else
+            {
+                fullScreenToggle.isOn = true;
+            }
+        }
+        else if (optionSelected == 3)   // 'Back Button' is selected
         {
             playerInputActions.OptionsScreen.Disable();
             mainMenu.SetActive(true);    // Enables the main menu
@@ -155,5 +190,17 @@ public class OptionsMenu : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         savedMusicVolume = volume;
+    }
+
+    public void ToggleFullscreen(bool value)
+    {
+        if (value)
+        {
+            Screen.fullScreen = true;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+        }
     }
 }
