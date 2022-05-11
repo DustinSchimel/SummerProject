@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
@@ -43,9 +44,10 @@ public class OptionsMenu : MonoBehaviour
         sfxSlider.value = savedSfxVolume;
         musicSlider.value = savedMusicVolume;
 
-
-        Debug.Log("Freezing time");
-        Time.timeScale = 0f;
+        if (SceneManager.GetActiveScene().buildIndex != 0)  // If the scene is not the title screen, freeze time
+        {
+            Time.timeScale = 0f;
+        }
         optionSelected = 0;
         sfxSlider.Select();
     }
@@ -138,7 +140,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void OnDisable()
     {
-        //Time.timeScale = 1f;
         playerInputActions.OptionsScreen.Disable();
 
         // Save volume
