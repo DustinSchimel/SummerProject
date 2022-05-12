@@ -78,7 +78,7 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
             playerInputActions.Player.Enable();
             playerInputActions.Player.Jump.performed += JumpPressed;
             playerInputActions.Player.Jump.canceled += JumpReleased;
-            playerInputActions.Player.Pause.performed += Pause;
+            //playerInputActions.Player.Pause.performed += Pause;
         }
     }
 
@@ -134,6 +134,16 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
             Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
             #region Direction
+            if (moveInput.x > 0)
+            {
+                photonView.RPC("FlipFalse", PhotonTargets.AllBuffered);
+            }
+            else if (moveInput.x < 0)
+            {
+                photonView.RPC("FlipTrue", PhotonTargets.AllBuffered);
+            }
+
+            /*
             if (moveInput.x > 0 && !facingRight)    // Player is moving towards the right and isn't facing right
             {
                 //Flip();
@@ -147,6 +157,7 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
 
                 photonView.RPC("FlipFalse", PhotonTargets.AllBuffered);
             }
+            */
             #endregion
 
             #region Animation
