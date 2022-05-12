@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class MultiplayerPlayerController : Photon.MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
     public GameObject playerCamera;
     public PhotonView photonView;
     public SpriteRenderer sr;
-    public Text playerNameText;
+    public TMP_Text playerNameText;
 
     [Header("Direction")]
     public bool facingRight;
@@ -53,6 +54,12 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             playerCamera.SetActive(true);
+            playerNameText.text = PhotonNetwork.playerName;
+        }
+        else
+        {
+            playerNameText.text = photonView.owner.name;
+            playerNameText.color = Color.cyan;
         }
     }
 
@@ -129,11 +136,16 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
             #region Direction
             if (moveInput.x > 0 && !facingRight)    // Player is moving towards the right and isn't facing right
             {
-                Flip();
+                //Flip();
+
+                photonView.RPC("FlipTrue", PhotonTargets.AllBuffered);
+
             }
             else if (moveInput.x < 0 && facingRight)    // Player is moving towards the left and isn't facing left
             {
-                Flip(); // This is causing issues in multiplayer version for some reason
+                //Flip(); // This is causing issues in multiplayer version for some reason
+
+                photonView.RPC("FlipFalse", PhotonTargets.AllBuffered);
             }
             #endregion
 
@@ -183,7 +195,7 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
             //currentScale.x *= -1;
             //gameObject.transform.localScale = currentScale;
 
-            facingRight = !facingRight;
+            //facingRight = !facingRight;
         /*
         }
         */
@@ -258,10 +270,24 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
 
     private void Pause(InputAction.CallbackContext context)
     {
+        Debug.Log("Attempting pause");
         if (photonView.isMine)
         {
+            Debug.Log("Paused");
             playerInputActions.Player.Disable();
             pauseMenu.SetActive(true);
         }
+    }
+
+    [PunRPC]
+    private void FlipTrue()
+    {
+        sr.flipX = true;
+    }
+
+    [PunRPC]
+    private void FlipFalse()
+    {
+        sr.flipX = false;
     }
 }
