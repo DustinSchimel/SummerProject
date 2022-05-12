@@ -21,17 +21,20 @@ public class OptionsMenu : MonoBehaviour
     private float savedSfxVolume;
     private float savedMusicVolume;
 
+    // Add saving of player colors here possibly
+
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {
         playerInputActions = new PlayerInputActions();
-        playerInputActions.OptionsScreen.Enable();
-        playerInputActions.OptionsScreen.MoveUp.performed += MoveUp;
-        playerInputActions.OptionsScreen.MoveDown.performed += MoveDown;
-        playerInputActions.OptionsScreen.SelectOption.performed += SelectOption;
-        playerInputActions.OptionsScreen.VolumeUp.performed += VolumeUp;
-        playerInputActions.OptionsScreen.VolumeDown.performed += VolumeDown;
 
-        if(Screen.fullScreen == true)
+        playerInputActions.Menu.Enable();
+        playerInputActions.Menu.MoveUp.performed += MoveUp;
+        playerInputActions.Menu.MoveDown.performed += MoveDown;
+        playerInputActions.Menu.SelectOption.performed += SelectOption;
+        playerInputActions.Menu.VolumeUp.performed += VolumeUp;
+        playerInputActions.Menu.VolumeDown.performed += VolumeDown;
+
+        if (Screen.fullScreen == true)
         {
             fullScreenToggle.isOn = true;
         }
@@ -44,6 +47,9 @@ public class OptionsMenu : MonoBehaviour
         {
             savedSfxVolume = PlayerPrefs.GetFloat("sfxVolume");
             savedMusicVolume = PlayerPrefs.GetFloat("musicVolume");
+
+            sfxSlider.value = savedSfxVolume;
+            musicSlider.value = savedMusicVolume;
         }
         else
         {
@@ -51,13 +57,11 @@ public class OptionsMenu : MonoBehaviour
             savedMusicVolume = musicSlider.value;
         }
 
-        sfxSlider.value = savedSfxVolume;
-        musicSlider.value = savedMusicVolume;
-
-        if (SceneManager.GetActiveScene().buildIndex != 0)  // If the scene is not the title screen, freeze time
+        if (SceneManager.GetActiveScene().name != "Menu")  // If the scene is not the title screen, freeze time
         {
             Time.timeScale = 0f;
         }
+
         optionSelected = 0;
         sfxSlider.Select();
     }
@@ -66,25 +70,22 @@ public class OptionsMenu : MonoBehaviour
     {
         if (optionSelected == 0)    // 'Sfx Volume' is selected
         {
-            // Do nothing
+            sfxSlider.Select();
         }
         else if (optionSelected == 1)   // 'Music Volume' is selected
         {
-            // Enable 'Sfx Volume' selection
             sfxSlider.Select();
 
             optionSelected = 0;
         }
         else if (optionSelected == 2)   // 'Fullscreen Toggle' is selected
         {
-            // Enable 'Music Volume' selection
             musicSlider.Select();
 
             optionSelected = 1;
         }
         else if (optionSelected == 3)   // 'Back Button' is selected
         {
-            // Enable 'Fullsceen Toggle' selection
             fullScreenToggle.Select();
 
             optionSelected = 2;
@@ -95,28 +96,25 @@ public class OptionsMenu : MonoBehaviour
     {
         if (optionSelected == 0)    // 'Sfx Volume' is selected
         {
-            // Enable 'Music Volume' selection
             musicSlider.Select();
 
             optionSelected = 1;
         }
         else if (optionSelected == 1)    // 'Music Volume' is selected
         {
-            // Enable 'Fullscreen toggle' selection
             fullScreenToggle.Select();
 
             optionSelected = 2;
         }
         else if (optionSelected == 2)    // 'Fullscreen Toggle' is selected
         {
-            // Enable 'Back' selection
             backButton.Select();
 
             optionSelected = 3;
         }
         else if (optionSelected == 3)    // 'Back Button' is selected
         {
-            // Do nothing
+            backButton.Select();
         }
     }
 
@@ -132,20 +130,11 @@ public class OptionsMenu : MonoBehaviour
         }
         else if (optionSelected == 2)   // 'Fullscreen Toggle' is selected
         {
-            if (fullScreenToggle.isOn)
-            {
-                fullScreenToggle.isOn = false;
-            }
-            else
-            {
-                fullScreenToggle.isOn = true;
-            }
+            ToggleFullscreen(Screen.fullScreen);
         }
         else if (optionSelected == 3)   // 'Back Button' is selected
         {
-            playerInputActions.OptionsScreen.Disable();
-            mainMenu.SetActive(true);    // Enables the main menu
-            optionsMenu.SetActive(false);    // Disables the options menu
+            GoBack();
         }
     }
 
@@ -173,15 +162,6 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    public void OnDisable()
-    {
-        playerInputActions.OptionsScreen.Disable();
-
-        // Save volume
-        PlayerPrefs.SetFloat("sfxVolume", savedSfxVolume);
-        PlayerPrefs.SetFloat("musicVolume", savedMusicVolume);
-    }
-
     public void SetSfxVolume(float volume)
     {
         savedSfxVolume = volume;
@@ -202,5 +182,17 @@ public class OptionsMenu : MonoBehaviour
         {
             Screen.fullScreen = false;
         }
+    }
+
+    public void GoBack()
+    {
+        // Save volume
+        PlayerPrefs.SetFloat("sfxVolume", savedSfxVolume);
+        PlayerPrefs.SetFloat("musicVolume", savedMusicVolume);
+
+        playerInputActions.Menu.Disable();
+
+        optionsMenu.SetActive(false);    // Disables the options menu
+        mainMenu.SetActive(true);    // Enables the main menu
     }
 }

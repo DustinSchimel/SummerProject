@@ -7,7 +7,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public GameObject gameCanvas;
     public GameObject sceneCamera;
     public TMP_Text pingText;
 
@@ -16,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //gameCanvas.SetActive(true);
+        SpawnPlayer();
     }
 
     private void Update()
@@ -26,10 +25,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
-        float randomValue = Random.Range(-1f, 1f);
-
-        PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
-        gameCanvas.SetActive(false);
+        PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity, 0);
         sceneCamera.SetActive(false);
     }
 

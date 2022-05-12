@@ -10,6 +10,7 @@ public class MultiplayerMenu : MonoBehaviour
     private PlayerInputActions playerInputActions;
     public GameObject mainMenu;
     public GameObject usernameMenu;
+    public GameObject multiplayerCanvas;
     public GameObject hostJoinMenu;
 
     public TMP_InputField usernameInput;
@@ -21,12 +22,12 @@ public class MultiplayerMenu : MonoBehaviour
 
     [Header("Values")]
     public int minUsernameLength = 2;
-    public byte maxPlayersPerRoom = 5;
+    public byte maxPlayersPerRoom = 10;
     private int optionSelected;
     private string savedUsername;
+    private bool inJoinHostMenu = false;
 
-    [SerializeField] private string versionName = "0.1";
-    [SerializeField] private 
+    [SerializeField] private string versionName = "0.2-alpha";
 
     void Awake()
     {
@@ -41,13 +42,14 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {
-        /*
         playerInputActions = new PlayerInputActions();
-        playerInputActions.TitleScreen.Enable();
-        playerInputActions.TitleScreen.MoveUp.performed += MoveUp;
-        playerInputActions.TitleScreen.MoveDown.performed += MoveDown;
-        playerInputActions.TitleScreen.SelectOption.performed += SelectOption;
-        */
+        playerInputActions.Menu.Enable();
+        playerInputActions.Menu.MoveUp.performed += MoveUp;
+        playerInputActions.Menu.MoveDown.performed += MoveDown;
+        playerInputActions.Menu.SelectOption.performed += SelectOption;
+
+        optionSelected = 2; // take out once username saving is in
+        backButton.Select();    // take out once username saving is in
 
         /*
         if (PlayerPrefs.HasKey("savedUsername"))
@@ -73,57 +75,34 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void MoveUp(InputAction.CallbackContext context)
     {
-        /*
         if (optionSelected == 0)    // 'Username Input' is selected
         {
             // Do nothing
         }
         else if (optionSelected == 1)   // 'Continue' is selected
         {
-            // Enable 'Username Input' selection
-            usernameInput.Select();
-
-            optionSelected = 0;
+            // Do nothing
         }
         else if (optionSelected == 2)   // 'Back Button' is selected
         {
             if (continueButton.isActiveAndEnabled)
             {
-                // Enable 'Continue Button' selection
                 continueButton.Select();
 
                 optionSelected = 1;
             }
             else
             {
-                // Enable 'Username Input' selection
-                usernameInput.Select();
-
-                optionSelected = 0;
+                backButton.Select();
             }
         }
-        */
     }
 
     public void MoveDown(InputAction.CallbackContext context)
     {
-        /*
         if (optionSelected == 0)    // 'Username Input' is selected
         {
-            if (continueButton.isActiveAndEnabled)
-            {
-                // Enable 'Continue Button' selection
-                continueButton.Select();
-
-                optionSelected = 1;
-            }
-            else
-            {
-                // Enable 'Back Button' selection
-                backButton.Select();
-
-                optionSelected = 2;
-            }
+            // Do nothing
         }
         else if (optionSelected == 1)    // 'Continue Button' is selected
         {
@@ -134,14 +113,12 @@ public class MultiplayerMenu : MonoBehaviour
         }
         else if (optionSelected == 2)    // 'Back' is selected
         {
-            // Do nothing
+            backButton.Select();
         }
-        */
     }
 
     public void SelectOption(InputAction.CallbackContext context)
     {
-        /*
         if (optionSelected == 0)    // 'Isername Input' is selected
         {
             // Not too sure yet
@@ -150,44 +127,57 @@ public class MultiplayerMenu : MonoBehaviour
         {
             // Load multiplayer stuff
 
-
-            //playerInputActions.TitleScreen.Disable();
-            //multiplayerMenu.SetActive(true);    // Enables the multiplayer menu
-            //mainMenu.SetActive(false);    // Disables the main menu
+            playerInputActions.Menu.Disable();
+            mainMenu.SetActive(false);    // Disables the main menu
+            hostJoinMenu.SetActive(true);    // Enables the multiplayer menu
         }
         else if (optionSelected == 2)   // 'Back' is selected
         {
-            //playerInputActions.TitleScreen.Disable();
-            mainMenu.SetActive(true);    // Enables the main menu
-            usernameMenu.SetActive(false);    // Disables the multiplayer menu
+            GoBack();
         }
-        */
     }
 
-    public void OnDisable()
+    public void OnDisconnectedFromPhoton()
     {
-        //optionSelected = 0;
-        //playerInputActions.TitleScreen.Disable();
+        Debug.Log("Disconnected");
+    }
+
+    public void GoBack()
+    {
+        playerInputActions.Menu.Disable();
+
+        usernameMenu.SetActive(false);    // Disables the multiplayer menu
+        multiplayerCanvas.SetActive(false); // Disables the multiplayer canvas so the player can reconnect once they enter the multiplayer menu again
+
+        if (PhotonNetwork.connected)
+        {
+            PhotonNetwork.Disconnect(); // Not working properly for some reason
+        }
+
+        mainMenu.SetActive(true);    // Enables the main menu
     }
 
     public void ChangeUsernameInput()
     {
         if (usernameInput.text.Length >= minUsernameLength)
         {
-            //continueButton.enabled = true;
             continueButton.gameObject.SetActive(true);
         }
         else
         {
+            if (optionSelected == 1)
+            {
+                optionSelected = 2;
+            }
+
             continueButton.gameObject.SetActive(false);
-            //continueButton.enabled = false;
         }
     }
 
     public void SetUserName()
     {
-        usernameMenu.SetActive(false);
         hostJoinMenu.SetActive(true);
+        usernameMenu.SetActive(false);
         PhotonNetwork.playerName = usernameInput.text;
     }
 
