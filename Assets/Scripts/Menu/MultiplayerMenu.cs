@@ -21,6 +21,7 @@ public class MultiplayerMenu : MonoBehaviour
 
     [Header("Values")]
     public int minUsernameLength = 2;
+    public byte maxPlayersPerRoom = 5;
     private int optionSelected;
     private string savedUsername;
 
@@ -165,8 +166,8 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void OnDisable()
     {
-        optionSelected = 0;
-        playerInputActions.TitleScreen.Disable();
+        //optionSelected = 0;
+        //playerInputActions.TitleScreen.Disable();
     }
 
     public void ChangeUsernameInput()
@@ -188,6 +189,23 @@ public class MultiplayerMenu : MonoBehaviour
         usernameMenu.SetActive(false);
         hostJoinMenu.SetActive(true);
         PhotonNetwork.playerName = usernameInput.text;
+    }
+
+    public void CreateGame()
+    {
+        PhotonNetwork.CreateRoom(hostGameInput.text, new RoomOptions() { maxPlayers = maxPlayersPerRoom}, null);
+    }
+
+    public void JoinGame()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.maxPlayers = maxPlayersPerRoom;
+        PhotonNetwork.JoinOrCreateRoom(joinGameInput.text, roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
+    }
+
+    private void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("Multiplayer");
     }
 
     /*

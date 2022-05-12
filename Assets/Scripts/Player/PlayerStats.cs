@@ -6,7 +6,8 @@ public class PlayerStats : MonoBehaviour
     [Header("References")]
     private Rigidbody2D rb;
     private Transform respawnPoint;
-    private PlayerController playerController;
+    //private PlayerController playerController;
+    private MultiplayerPlayerController playerController;
     private Animator animator;
 
     [Header("Stats")]
@@ -20,7 +21,8 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerController = GetComponent<PlayerController>();
+        //playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<MultiplayerPlayerController>();
         animator = GetComponent<Animator>();
         gravityScale = rb.gravityScale;
     }
