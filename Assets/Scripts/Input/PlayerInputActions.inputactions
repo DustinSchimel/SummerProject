@@ -101,6 +101,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "left",
+                    "id": "abb20e72-b5bd-4e28-80a4-3b1703cc37a7",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "right",
                     "id": "322318e5-d569-4c6c-b185-dcc9c887738b",
                     "path": "<Keyboard>/d",
@@ -112,9 +123,31 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "right",
+                    "id": "8979bad1-58b4-4171-9b60-ce3e6e5a88b6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "down",
                     "id": "483e1655-39bf-421b-92bf-50a62f8b83f9",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "da49a8bf-b32a-4db5-ba69-8c83cc5a5c57",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
