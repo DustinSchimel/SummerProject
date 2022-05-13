@@ -20,12 +20,16 @@ public class MultiplayerMenu : MonoBehaviour
     public Button continueButton;
     public Button backButton;
 
+    public Button connectBackButton;
+    public Button joinGameButton;
+    public Button createGameButton;
+
     [Header("Values")]
     public int minUsernameLength = 2;
     public byte maxPlayersPerRoom = 10;
     private int optionSelected;
     private string savedUsername;
-    private bool inJoinHostMenu = false;
+    private bool inConnectMenu = false;
 
     [SerializeField] private string versionName = "0.2-alpha";
 
@@ -48,7 +52,7 @@ public class MultiplayerMenu : MonoBehaviour
         playerInputActions.Menu.MoveDown.performed += MoveDown;
         playerInputActions.Menu.SelectOption.performed += SelectOption;
 
-        optionSelected = 2; // take out once username saving is in
+        optionSelected = 1; // take out once username saving is in
         backButton.Select();    // take out once username saving is in
 
         /*
@@ -75,66 +79,121 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void MoveUp(InputAction.CallbackContext context)
     {
-        if (optionSelected == 0)    // 'Username Input' is selected
+        if (!inConnectMenu)
         {
-            // Do nothing
-        }
-        else if (optionSelected == 1)   // 'Continue' is selected
-        {
-            // Do nothing
-        }
-        else if (optionSelected == 2)   // 'Back Button' is selected
-        {
-            if (continueButton.isActiveAndEnabled)
+            if (optionSelected == 0)   // 'Continue' is selected
             {
                 continueButton.Select();
+            }
+            else if (optionSelected == 1)   // 'Back Button' is selected
+            {
+                if (continueButton.isActiveAndEnabled)
+                {
+                    continueButton.Select();
+
+                    optionSelected = 0;
+                }
+                else
+                {
+                    backButton.Select();
+                }
+            }
+        }
+        else
+        {
+            if (optionSelected == 0)    // 'Create Game Button' is selected
+            {
+                createGameButton.Select();
+            }
+            else if (optionSelected == 1)   // 'Join Game Button' is selected
+            {
+                createGameButton.Select();
+
+                optionSelected = 0;
+            }
+            else if (optionSelected == 2)   // 'Back Button' is selected
+            {
+                joinGameButton.Select();
 
                 optionSelected = 1;
-            }
-            else
-            {
-                backButton.Select();
             }
         }
     }
 
     public void MoveDown(InputAction.CallbackContext context)
     {
-        if (optionSelected == 0)    // 'Username Input' is selected
+        if (!inConnectMenu)
         {
-            // Do nothing
-        }
-        else if (optionSelected == 1)    // 'Continue Button' is selected
-        {
-            // Enable 'Back' selection
-            backButton.Select();
+            if (optionSelected == 0)    // 'Continue Button' is selected
+            {
+                backButton.Select();
 
-            optionSelected = 2;
+                optionSelected = 1;
+            }
+            else if (optionSelected == 1)    // 'Back Button' is selected
+            {
+                backButton.Select();
+            }
         }
-        else if (optionSelected == 2)    // 'Back' is selected
+        else
         {
-            backButton.Select();
+            if (optionSelected == 0)    // 'Create Game Button' is selected
+            {
+                joinGameButton.Select();
+
+                optionSelected = 1;
+            }
+            else if (optionSelected == 1)   // 'Join Game Button' is selected
+            {
+                connectBackButton.Select();
+
+                optionSelected = 2;
+            }
+            else if (optionSelected == 2)   // 'Back Button' is selected
+            {
+                connectBackButton.Select();
+            }
         }
     }
 
     public void SelectOption(InputAction.CallbackContext context)
     {
-        if (optionSelected == 0)    // 'Isername Input' is selected
+        if (!inConnectMenu)
         {
-            // Not too sure yet
+            if (optionSelected == 0)    // 'Continue Button' is selected
+            {
+                SetUserName();
+            }
+            else if (optionSelected == 1)   // 'Back Button' is selected
+            {
+                GoBack();
+            }
         }
-        else if (optionSelected == 1)   // 'Continue' is selected
+        else
         {
-            // Load multiplayer stuff
+            if (optionSelected == 0)    // 'Create Game Button' is selected
+            {
+                CreateGame();
+            }
+            else if (optionSelected == 1)   // 'Join Game Button' is selected
+            {
+                JoinGame();
+            }
+            else if (optionSelected == 2)   // 'Back Button' is selected
+            {
+                GoBackConnectMenu();
+            }
+        }
+    }
 
-            playerInputActions.Menu.Disable();
-            mainMenu.SetActive(false);    // Disables the main menu
-            hostJoinMenu.SetActive(true);    // Enables the multiplayer menu
-        }
-        else if (optionSelected == 2)   // 'Back' is selected
-        {
-            GoBack();
-        }
+    public void DisableInput()
+    {
+        playerInputActions.Menu.Disable();
+    }
+
+    public void EnableInput()
+    {
+        playerInputActions.Menu.Enable();
     }
 
     public void OnDisconnectedFromPhoton()
@@ -157,6 +216,15 @@ public class MultiplayerMenu : MonoBehaviour
         mainMenu.SetActive(true);    // Enables the main menu
     }
 
+    public void GoBackConnectMenu()
+    {
+        hostJoinMenu.SetActive(false);  // Disables the host join menu
+        usernameMenu.SetActive(true);    // Enables the username menu
+
+        inConnectMenu = false;
+        optionSelected = 1;
+    }
+
     public void ChangeUsernameInput()
     {
         if (usernameInput.text.Length >= minUsernameLength)
@@ -165,9 +233,9 @@ public class MultiplayerMenu : MonoBehaviour
         }
         else
         {
-            if (optionSelected == 1)
+            if (optionSelected == 0)
             {
-                optionSelected = 2;
+                optionSelected = 1;
             }
 
             continueButton.gameObject.SetActive(false);
@@ -176,21 +244,38 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void SetUserName()
     {
-        hostJoinMenu.SetActive(true);
         usernameMenu.SetActive(false);
+        hostJoinMenu.SetActive(true);
+        //usernameMenu.gameObject.SetActive(false);
         PhotonNetwork.playerName = usernameInput.text;
+
+        inConnectMenu = true;
+        optionSelected = 0;
+        createGameButton.Select();
     }
 
-    public void CreateGame()
+    public void CreateGame()    //add checks for input is empty
     {
-        PhotonNetwork.CreateRoom(hostGameInput.text, new RoomOptions() { maxPlayers = maxPlayersPerRoom}, null);
+        if (hostGameInput.text.ToLower().Length > 0)
+        {
+            playerInputActions.Menu.Disable();
+            PhotonNetwork.CreateRoom(hostGameInput.text.ToLower(), new RoomOptions() { maxPlayers = maxPlayersPerRoom }, null);
+            inConnectMenu = false;
+            optionSelected = 1;
+        }
     }
 
     public void JoinGame()
     {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.maxPlayers = maxPlayersPerRoom;
-        PhotonNetwork.JoinOrCreateRoom(joinGameInput.text, roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
+        if (joinGameInput.text.ToLower().Length > 0)
+        {
+            playerInputActions.Menu.Disable();
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.maxPlayers = maxPlayersPerRoom;
+            PhotonNetwork.JoinOrCreateRoom(joinGameInput.text.ToLower(), roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
+            inConnectMenu = false;
+            optionSelected = 1;
+        }
     }
 
     private void OnJoinedRoom()
