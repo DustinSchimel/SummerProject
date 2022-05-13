@@ -52,29 +52,26 @@ public class MultiplayerMenu : MonoBehaviour
         playerInputActions.Menu.MoveDown.performed += MoveDown;
         playerInputActions.Menu.SelectOption.performed += SelectOption;
 
-        optionSelected = 1; // take out once username saving is in
-        backButton.Select();    // take out once username saving is in
-
-        /*
-        if (PlayerPrefs.HasKey("savedUsername"))
+        if (PlayerPrefs.HasKey("savedUsername") && PlayerPrefs.GetString("savedUsername").Length >= minUsernameLength)
         {
+            Debug.Log("Saved username of " + PlayerPrefs.GetString("savedUsername") + " found");
             savedUsername = PlayerPrefs.GetString("savedUsername");
             usernameInput.text = savedUsername;
 
             if (savedUsername.Length >= minUsernameLength)
             {
-                optionSelected = 1;
+                optionSelected = 0;
                 continueButton.enabled = true;
                 continueButton.Select();
             }
         }
         else
         {
+            Debug.Log("No saved username found");
             savedUsername = "";
-            optionSelected = 0;
-            usernameInput.Select();
+            optionSelected = 1;
+            backButton.Select();
         }
-        */
     }
 
     public void MoveUp(InputAction.CallbackContext context)
@@ -246,7 +243,6 @@ public class MultiplayerMenu : MonoBehaviour
     {
         usernameMenu.SetActive(false);
         hostJoinMenu.SetActive(true);
-        //usernameMenu.gameObject.SetActive(false);
         PhotonNetwork.playerName = usernameInput.text;
 
         inConnectMenu = true;
@@ -258,6 +254,7 @@ public class MultiplayerMenu : MonoBehaviour
     {
         if (hostGameInput.text.ToLower().Length > 0)
         {
+            SaveUsername();
             playerInputActions.Menu.Disable();
             PhotonNetwork.CreateRoom(hostGameInput.text.ToLower(), new RoomOptions() { maxPlayers = maxPlayersPerRoom }, null);
             inConnectMenu = false;
@@ -269,6 +266,7 @@ public class MultiplayerMenu : MonoBehaviour
     {
         if (joinGameInput.text.ToLower().Length > 0)
         {
+            SaveUsername();
             playerInputActions.Menu.Disable();
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.maxPlayers = maxPlayersPerRoom;
@@ -283,11 +281,11 @@ public class MultiplayerMenu : MonoBehaviour
         PhotonNetwork.LoadLevel("Multiplayer");
     }
 
-    /*
     public void SaveUsername()
     {
         // Save username
+        savedUsername = usernameInput.text;
+        Debug.Log("Saving username of " + savedUsername);
         PlayerPrefs.SetString("savedUsername", savedUsername);
     }
-    */
 }
