@@ -106,12 +106,10 @@ public class MainMenu : MonoBehaviour
 
     public void PlayTimeTrial()
     {
-        /*
         playerInputActions.Menu.Disable();
 
         optionSelected = 0;
         SceneManager.LoadScene("TimeTrial");
-        */
     }
 
     public void GoToMultiplayer()
