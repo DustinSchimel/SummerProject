@@ -35,13 +35,17 @@ public class MultiplayerMenu : MonoBehaviour
 
     void Awake()
     {
+        /*
         PhotonNetwork.ConnectUsingSettings(versionName);
+        */
     }
 
     private void OnConnectedToMaster()
     {
+        /*
         PhotonNetwork.JoinLobby(TypedLobby.Default);
         Debug.Log("Connected");
+        */
     }
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
@@ -205,10 +209,12 @@ public class MultiplayerMenu : MonoBehaviour
         usernameMenu.SetActive(false);    // Disables the multiplayer menu
         multiplayerCanvas.SetActive(false); // Disables the multiplayer canvas so the player can reconnect once they enter the multiplayer menu again
 
+        /*
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.Disconnect(); // Not working properly for some reason
         }
+        */
 
         mainMenu.SetActive(true);    // Enables the main menu
     }
@@ -241,6 +247,7 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void SetUserName()
     {
+        /*
         usernameMenu.SetActive(false);
         hostJoinMenu.SetActive(true);
         PhotonNetwork.playerName = usernameInput.text;
@@ -248,17 +255,20 @@ public class MultiplayerMenu : MonoBehaviour
         inConnectMenu = true;
         optionSelected = 0;
         createGameButton.Select();
+        */
     }
 
     public void CreateGame()    //add checks for input is empty
     {
         if (hostGameInput.text.ToLower().Length > 0)
         {
+            /*
             SaveUsername();
             playerInputActions.Menu.Disable();
             PhotonNetwork.CreateRoom(hostGameInput.text.ToLower(), new RoomOptions() { maxPlayers = maxPlayersPerRoom }, null);
             inConnectMenu = false;
             optionSelected = 1;
+            */
         }
     }
 
@@ -266,6 +276,7 @@ public class MultiplayerMenu : MonoBehaviour
     {
         if (joinGameInput.text.ToLower().Length > 0)
         {
+            /*
             SaveUsername();
             playerInputActions.Menu.Disable();
             RoomOptions roomOptions = new RoomOptions();
@@ -273,12 +284,15 @@ public class MultiplayerMenu : MonoBehaviour
             PhotonNetwork.JoinOrCreateRoom(joinGameInput.text.ToLower(), roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
             inConnectMenu = false;
             optionSelected = 1;
+            */
         }
     }
 
     private void OnJoinedRoom()
     {
+        /*
         PhotonNetwork.LoadLevel("Multiplayer");
+        */
     }
 
     public void SaveUsername()

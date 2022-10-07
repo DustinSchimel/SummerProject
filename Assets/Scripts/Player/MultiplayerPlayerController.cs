@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
+/*
 public class MultiplayerPlayerController : Photon.MonoBehaviour
 {
     [Header("References")]
@@ -158,6 +159,8 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
                 photonView.RPC("FlipFalse", PhotonTargets.AllBuffered);
             }
             */
+
+/*
             #endregion
 
             #region Animation
@@ -210,8 +213,9 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
         /*
         }
         */
-    }
+    //}
 
+/*
     private void Jump(InputAction.CallbackContext context)
     {
         if (photonView.isMine)
@@ -302,3 +306,4 @@ public class MultiplayerPlayerController : Photon.MonoBehaviour
         sr.flipX = false;
     }
 }
+*/
