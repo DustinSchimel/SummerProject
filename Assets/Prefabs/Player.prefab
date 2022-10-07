@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 5949363088032928975}
   - component: {fileID: 5949363088032928968}
   - component: {fileID: 5949363088032928969}
-  - component: {fileID: 6683334561805328375}
   - component: {fileID: 5949363088032928970}
   - component: {fileID: 5949363088032928971}
   - component: {fileID: 5949363088032928964}
+  - component: {fileID: 7743439889919245828}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -168,39 +168,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &6683334561805328375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5949363088032928965}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45800be8115a8f940be7a221cfccc164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  playerCamera: {fileID: 0}
-  photonView: {fileID: 0}
-  sr: {fileID: 0}
-  playerNameText: {fileID: 0}
-  facingRight: 0
-  moveSpeed: 0
-  acceleration: 0
-  decceleration: 0
-  velPower: 0
-  frictionAmount: 0
-  jumpForce: 0
-  jumpCutMultiplier: 0
-  jumpCoyoteTime: 0
-  jumpBufferTime: 0
-  fallGravityMultiplier: 0
-  groundCheckPoint: {fileID: 0}
-  groundCheckSize: {x: 0, y: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!95 &5949363088032928970
 Animator:
   serializedVersion: 4
@@ -248,6 +215,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 0}
+--- !u!114 &7743439889919245828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5949363088032928965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &5949363089633601545
 GameObject:
   m_ObjectHideFlags: 0
