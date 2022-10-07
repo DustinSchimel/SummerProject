@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
 public class MultiplayerMenu : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class MultiplayerMenu : MonoBehaviour
     public TMP_InputField hostGameInput;
     public TMP_InputField joinGameInput;
 
-    public Button continueButton;
-    public Button backButton;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button backButton;
 
-    public Button connectBackButton;
-    public Button joinGameButton;
-    public Button createGameButton;
+    [SerializeField] private Button connectBackButton;
+    [SerializeField] private Button joinGameButton;
+    [SerializeField] private Button createGameButton;
 
     [Header("Values")]
     public int minUsernameLength = 2;
@@ -260,23 +261,27 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void CreateGame()    //add checks for input is empty
     {
+        //NetworkManager.Singleton.StartHost();
+
+        /*
         if (hostGameInput.text.ToLower().Length > 0)
         {
-            /*
             SaveUsername();
             playerInputActions.Menu.Disable();
             PhotonNetwork.CreateRoom(hostGameInput.text.ToLower(), new RoomOptions() { maxPlayers = maxPlayersPerRoom }, null);
             inConnectMenu = false;
             optionSelected = 1;
-            */
         }
+        */
     }
 
     public void JoinGame()
     {
+        //NetworkManager.Singleton.StartClient();
+
+        /*
         if (joinGameInput.text.ToLower().Length > 0)
         {
-            /*
             SaveUsername();
             playerInputActions.Menu.Disable();
             RoomOptions roomOptions = new RoomOptions();
@@ -284,8 +289,8 @@ public class MultiplayerMenu : MonoBehaviour
             PhotonNetwork.JoinOrCreateRoom(joinGameInput.text.ToLower(), roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
             inConnectMenu = false;
             optionSelected = 1;
-            */
         }
+        */
     }
 
     private void OnJoinedRoom()

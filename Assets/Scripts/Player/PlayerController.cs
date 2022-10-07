@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("References")]
     public GameObject pauseMenu;
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         facingRight = true;
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
+
         #region Checks
         if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer)) // checks to see if the player's ground hitbox is overlaping with the ground layer
         {
@@ -101,6 +106,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!IsOwner) return;
+
         Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
         #region Direction
@@ -151,6 +158,8 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
+        if (!IsOwner) return;
+
         Vector2 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
@@ -160,6 +169,9 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
+        /*
+        if (!IsOwner) return;
+
         if (lastGroundedTime > 0 && lastJumpTime > 0 && !isJumping && context.performed)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -167,22 +179,29 @@ public class PlayerController : MonoBehaviour
             lastJumpTime = 0;
             isJumping = true;
         }
+        */
     }
 
     private void Jump()
     {
+        if (!IsOwner) return;
+
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isJumping = true;
     }
 
     public void JumpPressed(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         lastJumpTime = jumpBufferTime;
     }
 
     // when jump is released the player will fall earlier
     public void JumpReleased(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         if (rb.velocity.y > 0 && isJumping)
         {
             rb.AddForce(Vector2.down * rb.velocity.y * jumpCutMultiplier, ForceMode2D.Impulse);
@@ -191,21 +210,29 @@ public class PlayerController : MonoBehaviour
 
     public void DisableControls()
     {
+        if (!IsOwner) return;
+
         playerInputActions.Player.Disable();
     }
 
     public void EnableControls()
     {
+        if (!IsOwner) return;
+
         playerInputActions.Player.Enable();
     }
 
     public void setGravity(float gravity)
     {
+        if (!IsOwner) return;
+
         gravityScale = gravity;
     }
 
     private void Pause(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         playerInputActions.Player.Disable();
         pauseMenu.SetActive(true);
     }
