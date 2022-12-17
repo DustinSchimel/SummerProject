@@ -57,7 +57,7 @@ public class MultiplayerMenu : MonoBehaviour
         playerInputActions.Menu.MoveDown.performed += MoveDown;
         playerInputActions.Menu.SelectOption.performed += SelectOption;
 
-        if (PlayerPrefs.HasKey("savedUsername") && PlayerPrefs.GetString("savedUsername").Length >= minUsernameLength)
+        if (PlayerPrefs.HasKey("savedUsername"))
         {
             Debug.Log("Saved username of " + PlayerPrefs.GetString("savedUsername") + " found");
             savedUsername = PlayerPrefs.GetString("savedUsername");
