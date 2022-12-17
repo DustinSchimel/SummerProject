@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: e171b2abe58098c468a6c4c9201ec70f
-  - enabled: 1
     path: Assets/Scenes/Multiplayer.unity
     guid: 4cc62a427a324eb4b8c0fd65c50617b5
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: e171b2abe58098c468a6c4c9201ec70f
   - enabled: 1
     path: Assets/Scenes/TimeTrial.unity
     guid: 2cda990e2423bbf4892e6590ba056729
