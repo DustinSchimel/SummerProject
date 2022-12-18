@@ -8,6 +8,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject pauseMenu;
     private Rigidbody2D rb;
     private PlayerInputActions playerInputActions;
+    private SpriteRenderer sprite;
     private Animator animator;
 
     [Header("Direction")]
@@ -42,12 +43,13 @@ public class PlayerController : NetworkBehaviour
     [Space(10)]
     public LayerMask groundLayer;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
+        //if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         facingRight = true;
 
         gravityScale = rb.gravityScale;
@@ -113,10 +115,14 @@ public class PlayerController : NetworkBehaviour
         #region Direction
         if (moveInput.x > 0 && !facingRight)    // Player is moving towards the right and isn't facing right
         {
+            //sprite.flipX = false;
+            //facingRight = !facingRight;
             Flip();
         }
         else if (moveInput.x < 0 && facingRight)    // Player is moving towards the left and isn't facing left
         {
+            //sprite.flipX = true;
+            //facingRight = !facingRight;
             Flip();
         }
         #endregion
@@ -158,8 +164,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Flip()
     {
-        if (!IsOwner) return;
-
         Vector2 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
@@ -184,7 +188,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Jump()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isJumping = true;
@@ -200,7 +204,7 @@ public class PlayerController : NetworkBehaviour
     // when jump is released the player will fall earlier
     public void JumpReleased(InputAction.CallbackContext context)
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         if (rb.velocity.y > 0 && isJumping)
         {
@@ -210,28 +214,28 @@ public class PlayerController : NetworkBehaviour
 
     public void DisableControls()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         playerInputActions.Player.Disable();
     }
 
     public void EnableControls()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         playerInputActions.Player.Enable();
     }
 
     public void setGravity(float gravity)
     {
-        if (!IsOwner) return;
+       //if (!IsOwner) return;
 
         gravityScale = gravity;
     }
 
     private void Pause(InputAction.CallbackContext context)
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         playerInputActions.Player.Disable();
         pauseMenu.SetActive(true);
