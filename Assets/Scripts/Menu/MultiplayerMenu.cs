@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Netcode;
+using UnityEditor;
 
 public class MultiplayerMenu : MonoBehaviour
 {
@@ -34,20 +35,6 @@ public class MultiplayerMenu : MonoBehaviour
 
     [SerializeField] private string versionName = "0.2-alpha";
 
-    void Awake()
-    {
-        /*
-        PhotonNetwork.ConnectUsingSettings(versionName);
-        */
-    }
-
-    private void OnConnectedToMaster()
-    {
-        /*
-        PhotonNetwork.JoinLobby(TypedLobby.Default);
-        Debug.Log("Connected");
-        */
-    }
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {
@@ -210,13 +197,6 @@ public class MultiplayerMenu : MonoBehaviour
         usernameMenu.SetActive(false);    // Disables the multiplayer menu
         multiplayerCanvas.SetActive(false); // Disables the multiplayer canvas so the player can reconnect once they enter the multiplayer menu again
 
-        /*
-        if (PhotonNetwork.connected)
-        {
-            PhotonNetwork.Disconnect(); // Not working properly for some reason
-        }
-        */
-
         mainMenu.SetActive(true);    // Enables the main menu
     }
 
@@ -261,43 +241,29 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void CreateGame()    //add checks for input is empty
     {
-        //NetworkManager.Singleton.StartHost();
+        SaveUsername();
+        playerInputActions.Menu.Disable();
+        inConnectMenu = false;
+        optionSelected = 1;
 
-        /*
-        if (hostGameInput.text.ToLower().Length > 0)
-        {
-            SaveUsername();
-            playerInputActions.Menu.Disable();
-            PhotonNetwork.CreateRoom(hostGameInput.text.ToLower(), new RoomOptions() { maxPlayers = maxPlayersPerRoom }, null);
-            inConnectMenu = false;
-            optionSelected = 1;
-        }
-        */
+        SceneManager.LoadScene("multiplayer");
+
+        NetworkManager.Singleton.StartHost();
     }
 
     public void JoinGame()
     {
-        //NetworkManager.Singleton.StartClient();
-
-        /*
         if (joinGameInput.text.ToLower().Length > 0)
         {
             SaveUsername();
             playerInputActions.Menu.Disable();
-            RoomOptions roomOptions = new RoomOptions();
-            roomOptions.maxPlayers = maxPlayersPerRoom;
-            PhotonNetwork.JoinOrCreateRoom(joinGameInput.text.ToLower(), roomOptions, TypedLobby.Default);    // Attempts to join room, but if that room does not exists, then one is created with that name
             inConnectMenu = false;
             optionSelected = 1;
-        }
-        */
-    }
 
-    private void OnJoinedRoom()
-    {
-        /*
-        PhotonNetwork.LoadLevel("Multiplayer");
-        */
+            //SceneManager.LoadScene("multiplayer");
+
+            NetworkManager.Singleton.StartClient();
+        }
     }
 
     public void SaveUsername()

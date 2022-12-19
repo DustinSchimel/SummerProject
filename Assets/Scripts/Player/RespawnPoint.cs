@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class RespawnPoint : MonoBehaviour
+public class RespawnPoint : NetworkBehaviour
 {
     [Header("References")]
     private Rigidbody2D rb;
@@ -12,7 +13,7 @@ public class RespawnPoint : MonoBehaviour
     private int currentCheckpoint;
     private GameObject currentCheckpointObject;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         rb = GetComponent<Rigidbody2D>();
         respawnPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
