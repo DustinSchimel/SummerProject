@@ -1099,7 +1099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &289570585
 Transform:
   m_ObjectHideFlags: 0
@@ -2222,6 +2222,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7143139712651434663, guid: 5707b423ad44ade4da80cb8fb900379b, type: 3}
   m_PrefabInstance: {fileID: 571555913}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &584270132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 299907316339328158, guid: cb9ee1d8909ca084bafdec4908621a1d, type: 3}
+  m_PrefabInstance: {fileID: 1102048519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &683010954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3097,7 +3102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &913947169
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4787,6 +4792,16 @@ MonoBehaviour:
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 5949363088032928965, guid: 0c6650942a311f84e80aa03e21ae2cb3, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 2102746276}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 584270132}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
@@ -26620,3 +26635,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101816453}
   m_CullTransparentMesh: 1
+--- !u!1 &2102746276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 299907316339328158, guid: cb9ee1d8909ca084bafdec4908621a1d, type: 3}
+  m_PrefabInstance: {fileID: 857166877}
+  m_PrefabAsset: {fileID: 0}
