@@ -33,7 +33,7 @@ public class MultiplayerMenu : MonoBehaviour
     private string savedUsername;
     private bool inConnectMenu = false;
 
-    [SerializeField] private string versionName = "0.2-alpha";
+    //[SerializeField] private string versionName = "0.2-alpha";
 
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
