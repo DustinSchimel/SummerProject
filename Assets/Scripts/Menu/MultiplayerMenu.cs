@@ -5,36 +5,44 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Netcode;
 using UnityEditor;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
+using Unity.Services.Relay.Models;
+using Unity.Services.Relay;
 
 public class MultiplayerMenu : MonoBehaviour
 {
     [Header("References")]
     private PlayerInputActions playerInputActions;
-    public GameObject mainMenu;
-    public GameObject usernameMenu;
-    public GameObject multiplayerCanvas;
-    public GameObject hostJoinMenu;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject multiplayerCanvas;
 
-    public TMP_InputField usernameInput;
-    public TMP_InputField hostGameInput;
-    public TMP_InputField joinGameInput;
+    [SerializeField] private TMP_InputField usernameInput;
+    [SerializeField] private TMP_InputField joinCodeInput;
 
-    [SerializeField] private Button continueButton;
-    [SerializeField] private Button backButton;
-
-    [SerializeField] private Button connectBackButton;
     [SerializeField] private Button joinGameButton;
     [SerializeField] private Button createGameButton;
+    [SerializeField] private Button backButton;
 
     [Header("Values")]
-    public int minUsernameLength = 2;
-    public byte maxPlayersPerRoom = 10;
+    [SerializeField] private int minUsernameLength = 2;
+    [SerializeField] private int maxPlayerCount;
     private int optionSelected;
     private string savedUsername;
-    private bool inConnectMenu = false;
+    private string joinCode;
 
-    //[SerializeField] private string versionName = "0.2-alpha";
+    private async void Start()
+    {
+        await UnityServices.InitializeAsync();
 
+        AuthenticationService.Instance.SignedIn += () =>
+        {
+            Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
+        };
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();  // this avoids having to use an account system
+    }
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
     {
@@ -50,225 +58,192 @@ public class MultiplayerMenu : MonoBehaviour
             savedUsername = PlayerPrefs.GetString("savedUsername");
             usernameInput.text = savedUsername;
 
-            if (savedUsername.Length >= minUsernameLength)
+            if (savedUsername.Length >= minUsernameLength)  // Once player loads in there is no join code entered, so just enable create button
             {
-                optionSelected = 0;
-                continueButton.enabled = true;
-                continueButton.Select();
+                optionSelected = 1;
+                createGameButton.enabled = true;
+                createGameButton.Select();
             }
         }
         else
         {
             Debug.Log("No saved username found");
             savedUsername = "";
-            optionSelected = 1;
+            optionSelected = 2;
             backButton.Select();
         }
     }
 
-    public void MoveUp(InputAction.CallbackContext context)
+    private void MoveUp(InputAction.CallbackContext context) // may have to make these public again
     {
-        if (!inConnectMenu)
+        if (optionSelected == 0)    // 'Join Game' Button is selected
         {
-            if (optionSelected == 0)   // 'Continue' is selected
-            {
-                continueButton.Select();
-            }
-            else if (optionSelected == 1)   // 'Back Button' is selected
-            {
-                if (continueButton.isActiveAndEnabled)
-                {
-                    continueButton.Select();
-
-                    optionSelected = 0;
-                }
-                else
-                {
-                    backButton.Select();
-                }
-            }
+            joinGameButton.Select();
         }
-        else
+        else if (optionSelected == 1)   // 'Create Game' Button is selected
         {
-            if (optionSelected == 0)    // 'Create Game Button' is selected
+            if (joinGameButton.enabled == true)
             {
-                createGameButton.Select();
-            }
-            else if (optionSelected == 1)   // 'Join Game Button' is selected
-            {
-                createGameButton.Select();
+                joinGameButton.Select();
 
                 optionSelected = 0;
             }
-            else if (optionSelected == 2)   // 'Back Button' is selected
+        }
+        else if (optionSelected == 2)   // 'Back' Button is selected
+        {
+            if (createGameButton.enabled == true)
             {
-                joinGameButton.Select();
+                createGameButton.Select();
 
                 optionSelected = 1;
             }
         }
     }
 
-    public void MoveDown(InputAction.CallbackContext context)
+    private void MoveDown(InputAction.CallbackContext context)
     {
-        if (!inConnectMenu)
+        if (optionSelected == 0)    // 'Join Game' Button is selected
         {
-            if (optionSelected == 0)    // 'Continue Button' is selected
-            {
-                backButton.Select();
+            createGameButton.Select();
 
-                optionSelected = 1;
-            }
-            else if (optionSelected == 1)    // 'Back Button' is selected
-            {
-                backButton.Select();
-            }
+            optionSelected = 1;
         }
-        else
+        else if (optionSelected == 1)   // 'Create Game' Button is selected
         {
-            if (optionSelected == 0)    // 'Create Game Button' is selected
-            {
-                joinGameButton.Select();
+            backButton.Select();
 
-                optionSelected = 1;
-            }
-            else if (optionSelected == 1)   // 'Join Game Button' is selected
-            {
-                connectBackButton.Select();
-
-                optionSelected = 2;
-            }
-            else if (optionSelected == 2)   // 'Back Button' is selected
-            {
-                connectBackButton.Select();
-            }
+            optionSelected = 2;
+        }
+        else if (optionSelected == 2)   // 'Back' Button is selected
+        {
+            backButton.Select();
         }
     }
 
-    public void SelectOption(InputAction.CallbackContext context)
+    private void SelectOption(InputAction.CallbackContext context)
     {
-        if (!inConnectMenu)
+        if (optionSelected == 0)    // 'Join Game' Button is selected
         {
-            if (optionSelected == 0)    // 'Continue Button' is selected
-            {
-                SetUserName();
-            }
-            else if (optionSelected == 1)   // 'Back Button' is selected
-            {
-                GoBack();
-            }
-        }
-        else
-        {
-            if (optionSelected == 0)    // 'Create Game Button' is selected
-            {
-                CreateGame();
-            }
-            else if (optionSelected == 1)   // 'Join Game Button' is selected
+            if ((joinCodeInput.text.Length == 6) && (savedUsername.Length >= minUsernameLength))    // double checking, should remove this later
             {
                 JoinGame();
             }
-            else if (optionSelected == 2)   // 'Back Button' is selected
+        }
+        else if (optionSelected == 1)   // 'Create Game' Button is selected
+        {
+            if (savedUsername.Length >= minUsernameLength)    // double checking, should remove this later
             {
-                GoBackConnectMenu();
+                CreateGame();
             }
+        }
+        else if (optionSelected == 2)   // 'Back' Button is selected
+        {
+            GoBack();
         }
     }
 
-    public void DisableInput()
+    private void DisableInput()
     {
         playerInputActions.Menu.Disable();
     }
 
-    public void EnableInput()
+    private void EnableInput()
     {
         playerInputActions.Menu.Enable();
     }
 
-    public void OnDisconnectedFromPhoton()
-    {
-        Debug.Log("Disconnected");
-    }
-
-    public void GoBack()
+    private void GoBack()
     {
         playerInputActions.Menu.Disable();
 
-        usernameMenu.SetActive(false);    // Disables the multiplayer menu
-        multiplayerCanvas.SetActive(false); // Disables the multiplayer canvas so the player can reconnect once they enter the multiplayer menu again
-
+        multiplayerCanvas.SetActive(false); // Disables the multiplayer menu
         mainMenu.SetActive(true);    // Enables the main menu
+
+        ResetMenuState();
     }
 
-    public void GoBackConnectMenu()
+    private void ResetMenuState()
     {
-        hostJoinMenu.SetActive(false);  // Disables the host join menu
-        usernameMenu.SetActive(true);    // Enables the username menu
 
-        inConnectMenu = false;
-        optionSelected = 1;
     }
 
-    public void ChangeUsernameInput()
+    private void OnUsernameUpdated()
     {
         if (usernameInput.text.Length >= minUsernameLength)
         {
-            continueButton.gameObject.SetActive(true);
+            createGameButton.interactable = true;
         }
         else
         {
-            if (optionSelected == 0)
-            {
-                optionSelected = 1;
-            }
-
-            continueButton.gameObject.SetActive(false);
+            createGameButton.interactable = false;
+            joinGameButton.interactable = false;
         }
     }
 
-    public void SetUserName()
+    public void OnJoinCodeUpdated()
     {
-        /*
-        usernameMenu.SetActive(false);
-        hostJoinMenu.SetActive(true);
-        PhotonNetwork.playerName = usernameInput.text;
-
-        inConnectMenu = true;
-        optionSelected = 0;
-        createGameButton.Select();
-        */
-    }
-
-    public void CreateGame()    //add checks for input is empty
-    {
-        SaveUsername();
-        playerInputActions.Menu.Disable();
-        inConnectMenu = false;
-        optionSelected = 1;
-
-        SceneManager.LoadScene("multiplayer");
-
-        NetworkManager.Singleton.StartHost();
-    }
-
-    public void JoinGame()
-    {
-        if (joinGameInput.text.ToLower().Length > 0)
+        if (joinCodeInput.text.Length == 6)
         {
+            joinGameButton.interactable = true;
+        }
+        else
+        {
+            joinGameButton.interactable = false;
+        }
+    }
+
+    public async void CreateGame()
+    {
+        try
+        {
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerCount - 1);   // - 1 since host is not counted
+
+            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartHost();
+
+            NetworkManager.Singleton.SceneManager.LoadScene("multiplayer", LoadSceneMode.Single);
+
+            ResetMenuState();
             SaveUsername();
             playerInputActions.Menu.Disable();
-            inConnectMenu = false;
-            optionSelected = 1;
-
-            //SceneManager.LoadScene("multiplayer");
-
-            NetworkManager.Singleton.StartClient();
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.Log(e);
         }
     }
 
-    public void SaveUsername()
+    public async void JoinGame()
     {
-        // Save username
+        try
+        {
+            joinCode = joinCodeInput.text;
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
+
+            ResetMenuState();
+            SaveUsername();
+            playerInputActions.Menu.Disable();
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private void SaveUsername()
+    {
         savedUsername = usernameInput.text;
         Debug.Log("Saving username of " + savedUsername);
         PlayerPrefs.SetString("savedUsername", savedUsername);

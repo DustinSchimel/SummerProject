@@ -9,6 +9,7 @@ public class PlayerCameraController : NetworkBehaviour
 {
     public CinemachineVirtualCamera vCam;
 
+    /*
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) return;
@@ -20,5 +21,16 @@ public class PlayerCameraController : NetworkBehaviour
             vCam.Follow = transform;
             vCam.LookAt = transform;
         }
+    }
+    */
+
+    public void Start()
+    {
+        if (!IsOwner) return;
+
+        vCam = FindObjectOfType<CinemachineVirtualCamera>();
+
+        vCam.Follow = transform;
+        vCam.LookAt = transform;
     }
 }
