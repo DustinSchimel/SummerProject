@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 380375443343558922}
   - component: {fileID: 8499163880391009887}
   - component: {fileID: 7074378760222736789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,10 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6052d90831b34da4d95fbb5a26972ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraHolder: {fileID: 0}
   vCam: {fileID: 0}
-  player: {fileID: 5949363088356251273}
-  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &5949363089633601545
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5949363089633601544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
