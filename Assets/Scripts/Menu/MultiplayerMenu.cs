@@ -121,23 +121,22 @@ public class MultiplayerMenu : MonoBehaviour
         {
             DontDestroyOnLoad(playersManager);
 
+            SceneManager.LoadScene("multiplayer", LoadSceneMode.Single);    // Might be best way to go
+
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerCount - 1);   // - 1 since host is not counted
 
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             playersManager.SetJoinCode(joinCode);
 
-            Debug.Log("Set join code in menu to " + joinCode);
+            // Temporary solution for updating the host with the join code in UI
+            NetworkUI tempUIReference = FindObjectOfType<NetworkUI>();
+            tempUIReference.joinCodeField.text = "Code: " + joinCode;
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             NetworkManager.Singleton.StartHost();
-
-            NetworkManager.Singleton.SceneManager.LoadScene("multiplayer", LoadSceneMode.Single);
-
-
-            //playersManager.SetJoinCode(joinCode);
 
             SaveUsername();
         }
