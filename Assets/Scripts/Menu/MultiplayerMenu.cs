@@ -15,6 +15,7 @@ public class MultiplayerMenu : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject multiplayerCanvas;
+    [SerializeField] private PlayersManager playersManager;
 
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField joinCodeInput;
@@ -118,9 +119,14 @@ public class MultiplayerMenu : MonoBehaviour
     {
         try
         {
+            DontDestroyOnLoad(playersManager);
+
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerCount - 1);   // - 1 since host is not counted
 
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            playersManager.SetJoinCode(joinCode);
+
+            Debug.Log("Set join code in menu to " + joinCode);
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
@@ -129,6 +135,9 @@ public class MultiplayerMenu : MonoBehaviour
             NetworkManager.Singleton.StartHost();
 
             NetworkManager.Singleton.SceneManager.LoadScene("multiplayer", LoadSceneMode.Single);
+
+
+            //playersManager.SetJoinCode(joinCode);
 
             SaveUsername();
         }
@@ -142,6 +151,8 @@ public class MultiplayerMenu : MonoBehaviour
     {
         try
         {
+            DontDestroyOnLoad(playersManager);
+
             joinCode = joinCodeInput.text;
 
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
