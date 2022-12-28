@@ -43,11 +43,6 @@ public class OptionsMenu : MonoBehaviour
             savedSfxVolume = sfxSlider.value;
             savedMusicVolume = musicSlider.value;
         }
-
-        if (SceneManager.GetActiveScene().name != "Menu")  // If the scene is not the title screen, freeze time
-        {
-            Time.timeScale = 0f;
-        }
     }
 
     public void SetSfxVolume(float volume)

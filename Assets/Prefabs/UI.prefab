@@ -1516,22 +1516,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2013322153514728071}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 5410683703106452552}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: LoadOptionsMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1724,13 +1712,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca983af80cbfb3346b33785425fade72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
+  optionsMenu: {fileID: 7468249317981804310}
   pauseMenu: {fileID: 2013322153514728071}
-  optionsMenu: {fileID: 0}
   resumeButton: {fileID: 2013322152217973749}
-  settingsButton: {fileID: 2013322153539593591}
-  menuButton: {fileID: 2013322153749656401}
-  quitButton: {fileID: 2013322152015861453}
   joinCodeField: {fileID: 2013322152466088977}
   playerCountField: {fileID: 2013322152083852389}
 --- !u!1001 &2013322154006263811
@@ -1768,10 +1752,14 @@ PrefabInstance:
     - target: {fileID: 8958870200215493223, guid: 4ae788ce789eb0149957e4ab50e9aa47, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2013322153514728071}
+      objectReference: {fileID: 5410683703106452552}
     - target: {fileID: 8958870200215493223, guid: 4ae788ce789eb0149957e4ab50e9aa47, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: DeloadOptionsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958870200215493223, guid: 4ae788ce789eb0149957e4ab50e9aa47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8958870200514174195, guid: 4ae788ce789eb0149957e4ab50e9aa47, type: 3}
       propertyPath: m_AnchorMax.x

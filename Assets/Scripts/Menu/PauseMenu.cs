@@ -8,14 +8,10 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("References")]
     private PlayerInputActions playerInputActions;
-    public PlayerController playerController;
-    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject pauseMenu;
 
     [SerializeField] private Button resumeButton;
-    [SerializeField] private Button settingsButton;
-    [SerializeField] private Button menuButton;
-    [SerializeField] private Button quitButton;
 
     [SerializeField] private TMP_Text joinCodeField;
     [SerializeField] private TMP_Text playerCountField;
@@ -33,31 +29,38 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume()
     {
-        //playerInputActions.Menu.Disable();
-        //playerController.EnableControls();
         playerInputActions.Player.Enable();
-        pauseMenu.SetActive(false);
+
         joinCodeField.enabled = true;
         playerCountField.enabled = true;
+        pauseMenu.SetActive(false);
     }
 
     public void LoadMainMenu()
     {
-        //playerInputActions.Menu.Disable();
-        //NetworkManager.Singleton.DisconnectClient;
         NetworkManager.Singleton.Shutdown();
-        //NetworkManager.Singleton.Shutdown
-
-        //while (NetworkManager.Singleton != null)
-        //{
-        //    Destroy(NetworkManager.Singleton.gameObject);
-        //}
 
         SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
     {
+        NetworkManager.Singleton.Shutdown();
+
         Application.Quit();
+    }
+
+    public void LoadOptionsMenu()
+    {
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
+
+    public void DeloadOptionsMenu()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+
+        resumeButton.Select();
     }
 }

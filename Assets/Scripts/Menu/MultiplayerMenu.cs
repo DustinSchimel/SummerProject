@@ -15,8 +15,6 @@ public class MultiplayerMenu : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject multiplayerCanvas;
-    [SerializeField] private PlayersManager playersManager;
-
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField joinCodeInput;
 
@@ -34,11 +32,14 @@ public class MultiplayerMenu : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
 
-        AuthenticationService.Instance.SignedIn += () =>
+        if (!AuthenticationService.Instance.IsSignedIn)
         {
-            Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();  // this avoids having to use an account system
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
+            };
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();  // this avoids having to use an account system
+        }
     }
 
     public void OnEnable()  // Called when the object this script is attatched to gets enabled
@@ -119,14 +120,13 @@ public class MultiplayerMenu : MonoBehaviour
     {
         try
         {
-            DontDestroyOnLoad(playersManager);
-
             SceneManager.LoadScene("multiplayer", LoadSceneMode.Single);    // Might be best way to go
 
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerCount - 1);   // - 1 since host is not counted
 
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            playersManager.SetJoinCode(joinCode);
+            //PlayersManager.instance.Cleanup();
+            PlayersManager.instance.SetJoinCode(joinCode);
 
             // Temporary solution for updating the host with the join code in UI
             NetworkUI tempUIReference = FindObjectOfType<NetworkUI>();
@@ -150,8 +150,6 @@ public class MultiplayerMenu : MonoBehaviour
     {
         try
         {
-            DontDestroyOnLoad(playersManager);
-
             joinCode = joinCodeInput.text;
 
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);

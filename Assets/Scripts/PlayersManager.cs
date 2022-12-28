@@ -6,6 +6,8 @@ using Unity.Collections;
 
 public class PlayersManager : NetworkBehaviour
 {
+    public static PlayersManager instance;
+
     private NetworkVariable<int> playerCount = new NetworkVariable<int>();
     private NetworkVariable<FixedString32Bytes> joinCode = new NetworkVariable<FixedString32Bytes>();
     private string joinCodeTempHolder;
@@ -26,13 +28,22 @@ public class PlayersManager : NetworkBehaviour
         }
     }
 
+    void Awake () 
+    {
+        if (instance == null) 
+        {
+            instance = this;
+        } 
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+ 
+       DontDestroyOnLoad (gameObject);
+    }
+
     void Start()
     {
-        if (NetworkManager.Singleton.IsHost)
-        {
-            //playerCount.Value = 0;
-        }
-
         NetworkManager.Singleton.OnClientConnectedCallback += (id) =>
         {
             if (NetworkManager.Singleton.IsHost)
@@ -62,5 +73,10 @@ public class PlayersManager : NetworkBehaviour
     public void SetJoinCode(string code)
     {
         joinCodeTempHolder = code;
+    }
+
+    public void Cleanup()
+    {
+        playerCount.Value = 0;
     }
 }
