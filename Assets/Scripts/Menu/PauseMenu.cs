@@ -1,147 +1,63 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
+using Unity.Netcode;
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("References")]
     private PlayerInputActions playerInputActions;
     public PlayerController playerController;
-    public GameObject pauseMenu;
-    public GameObject optionsMenu;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject optionsMenu;
 
-    public Button resumeButton;
-    public Button settingsButton;
-    public Button menuButton;
-    public Button quitButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button menuButton;
+    [SerializeField] private Button quitButton;
 
-    [Header("Values")]
-    private int optionSelected;
+    [SerializeField] private TMP_Text joinCodeField;
+    [SerializeField] private TMP_Text playerCountField;
 
-    public void OnEnable()
+    public void Pause(PlayerInputActions playerInputActions)
     {
-        playerInputActions = new PlayerInputActions();
+        this.playerInputActions = playerInputActions;
+        playerInputActions.Player.Disable();
 
-        playerInputActions.Menu.Enable();
-        playerInputActions.Menu.MoveUp.performed += MoveUp;
-        playerInputActions.Menu.MoveDown.performed += MoveDown;
-        playerInputActions.Menu.SelectOption.performed += SelectOption;
-        playerInputActions.Menu.Resume.performed += Resume;
+        joinCodeField.enabled = false;
+        playerCountField.enabled = false;
+        pauseMenu.SetActive(true);
 
-        Time.timeScale = 0f;
-        optionSelected = 0;
         resumeButton.Select();
     }
-
-    public void MoveUp(InputAction.CallbackContext context)
-    {
-        if (optionSelected == 0)    // 'Resume Button' is selected
-        {
-            // Do nothing
-        }
-        else if (optionSelected == 1)   // 'Settings Button' is selected
-        {
-            // Enable 'Resume Button' selection
-            resumeButton.Select();
-
-            optionSelected = 0;
-        }
-        else if (optionSelected == 2)   // 'Menu Button' is selected
-        {
-            // Enable 'Settings Button' selection
-            settingsButton.Select();
-
-            optionSelected = 1;
-        }
-        else if (optionSelected == 3)   // 'Quit Button' is selected
-        {
-            // Enable 'Menu Button' selection
-            menuButton.Select();
-
-            optionSelected = 2;
-        }
-    }
-
-    public void MoveDown(InputAction.CallbackContext context)
-    {
-        if (optionSelected == 0)    // 'Resume Button' is selected
-        {
-            // Enable 'Settings Button' selection
-            settingsButton.Select();
-
-            optionSelected = 1;
-        }
-        else if (optionSelected == 1)    // 'Settings Button' is selected
-        {
-            // Enable 'Menu Button' selection
-            menuButton.Select();
-
-            optionSelected = 2;
-        }
-        else if (optionSelected == 2)    // 'Menu Button' is selected
-        {
-            // Enable 'Quit Button' selection
-            quitButton.Select();
-
-            optionSelected = 3;
-        }
-        else if (optionSelected == 3)    // 'Quit Button' is selected
-        {
-            // Do nothing
-        }
-    }
-
-    public void SelectOption(InputAction.CallbackContext context)
-    {
-        if (optionSelected == 0)    // 'Resume Button' is selected
-        {
-            Resume();
-        }
-        else if (optionSelected == 1)   // 'Settings Button' is selected
-        {
-            playerInputActions.Menu.Disable();
-            pauseMenu.SetActive(false);    // Disables the pause menu
-            optionsMenu.SetActive(true);    // Enables the options menu
-        }
-        else if (optionSelected == 2)   // 'Menu Button' is selected
-        {
-            LoadMainMenu();
-        }
-        else if (optionSelected == 3)   // 'Quit Button' is selected
-        {
-            QuitGame();
-        }
-    }
-
-    public void Resume(InputAction.CallbackContext context)
-    {
-        playerInputActions.Menu.Disable();
-        playerController.EnableControls();
-        pauseMenu.SetActive(false);
-    }
-
     public void Resume()
     {
-        playerInputActions.Menu.Disable();
-        playerController.EnableControls();
+        //playerInputActions.Menu.Disable();
+        //playerController.EnableControls();
+        playerInputActions.Player.Enable();
         pauseMenu.SetActive(false);
+        joinCodeField.enabled = true;
+        playerCountField.enabled = true;
     }
 
     public void LoadMainMenu()
     {
-        playerInputActions.Menu.Disable();
-        SceneManager.LoadScene(0);
+        //playerInputActions.Menu.Disable();
+        //NetworkManager.Singleton.DisconnectClient;
+        NetworkManager.Singleton.Shutdown();
+        //NetworkManager.Singleton.Shutdown
+
+        //while (NetworkManager.Singleton != null)
+        //{
+        //    Destroy(NetworkManager.Singleton.gameObject);
+        //}
+
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void OnDisable()
-    {
-        Time.timeScale = 1f;
-        playerInputActions.Menu.Disable();
     }
 }

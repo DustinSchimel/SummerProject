@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : NetworkBehaviour
 {
     [Header("References")]
-    public GameObject pauseMenu;
+    private PauseMenu pauseMenu;
     private Rigidbody2D rb;
     private PlayerInputActions playerInputActions;
     private SpriteRenderer sprite;
@@ -46,10 +46,10 @@ public class PlayerController : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         //if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
-
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
         facingRight = true;
 
         gravityScale = rb.gravityScale;
@@ -60,6 +60,8 @@ public class PlayerController : NetworkBehaviour
         playerInputActions.Player.Jump.performed += JumpPressed;
         playerInputActions.Player.Jump.canceled += JumpReleased;
         playerInputActions.Player.Pause.performed += Pause;
+
+        pauseMenu = GameObject.Find("Pause").GetComponent<PauseMenu>();
     }
 
     private void Update()
@@ -237,7 +239,6 @@ public class PlayerController : NetworkBehaviour
     {
         //if (!IsOwner) return;
 
-        playerInputActions.Player.Disable();
-        pauseMenu.SetActive(true);
+        pauseMenu.Pause(playerInputActions);
     }
 }

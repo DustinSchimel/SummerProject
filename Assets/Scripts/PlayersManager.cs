@@ -30,7 +30,7 @@ public class PlayersManager : NetworkBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            playerCount.Value = 0;
+            //playerCount.Value = 0;
         }
 
         NetworkManager.Singleton.OnClientConnectedCallback += (id) =>

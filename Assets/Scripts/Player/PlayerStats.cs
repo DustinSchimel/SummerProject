@@ -7,7 +7,6 @@ public class PlayerStats : MonoBehaviour
     private Rigidbody2D rb;
     private Transform respawnPoint;
     private PlayerController playerController;
-    //private MultiplayerPlayerController playerController;
     private Animator animator;
 
     [Header("Stats")]
