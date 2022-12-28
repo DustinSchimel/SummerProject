@@ -22,11 +22,18 @@ public class MultiplayerMenu : MonoBehaviour
     [SerializeField] private Button createGameButton;
     [SerializeField] private Button backButton;
 
+    [SerializeField] private PlayersManager playersManager;
+
     [Header("Values")]
     [SerializeField] private int minUsernameLength = 2;
     [SerializeField] private int maxPlayerCount;
     private string savedUsername;
     private string joinCode;
+
+    private void Awake()
+    {
+        playersManager = GameObject.Find("PlayersManager").GetComponent<PlayersManager>();
+    }
 
     private async void Start()
     {
@@ -126,7 +133,8 @@ public class MultiplayerMenu : MonoBehaviour
 
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             //PlayersManager.instance.Cleanup();
-            PlayersManager.instance.SetJoinCode(joinCode);
+            //PlayersManager.instance.SetJoinCode(joinCode);
+            playersManager.SetJoinCode(joinCode);
 
             // Temporary solution for updating the host with the join code in UI
             NetworkUI tempUIReference = FindObjectOfType<NetworkUI>();
