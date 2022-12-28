@@ -34,7 +34,7 @@ public class PlayersManager : NetworkBehaviour
         {
             if (NetworkManager.Singleton.IsHost)
             {
-               playerCount.Value++;
+                playerCount.Value++;
             }
         };
 
@@ -42,7 +42,7 @@ public class PlayersManager : NetworkBehaviour
         {
             if (NetworkManager.Singleton.IsHost)
             {
-               playerCount.Value--;
+                playerCount.Value--;
             }
         };
 
@@ -50,7 +50,8 @@ public class PlayersManager : NetworkBehaviour
         {
             if (NetworkManager.Singleton.IsHost)
             {
-               joinCode.Value = joinCodeTempHolder;
+                Cleanup();
+                joinCode.Value = joinCodeTempHolder;
             }
         };
     }
@@ -63,6 +64,6 @@ public class PlayersManager : NetworkBehaviour
 
     public void Cleanup()
     {
-        playerCount.Value = 0;
+        playerCount.Value = 1;
     }
 }
