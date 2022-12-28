@@ -6,6 +6,7 @@ public class OptionsMenu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private Button mainMenuButton;
 
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Slider musicSlider;
@@ -21,11 +22,11 @@ public class OptionsMenu : MonoBehaviour
     {
         sfxSlider.Select();
 
-        if (Screen.fullScreen == true)
+        if (Screen.fullScreen)
         {
             fullScreenToggle.isOn = true;
         }
-        else if (Screen.fullScreen == false)
+        else
         {
             fullScreenToggle.isOn = false;
         }
@@ -75,5 +76,10 @@ public class OptionsMenu : MonoBehaviour
 
         gameObject.SetActive(false);    // Disables the options menu
         mainMenu.SetActive(true);    // Enables the main menu
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.Select();    // main menu button is null in main menu, not null is pause menus
+        }
     }
 }
