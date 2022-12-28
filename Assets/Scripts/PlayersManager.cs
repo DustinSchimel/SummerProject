@@ -28,20 +28,6 @@ public class PlayersManager : NetworkBehaviour
         }
     }
 
-    void Awake () 
-    {
-        if (instance == null) 
-        {
-            instance = this;
-        } 
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
- 
-       DontDestroyOnLoad (gameObject);
-    }
-
     void Start()
     {
         NetworkManager.Singleton.OnClientConnectedCallback += (id) =>

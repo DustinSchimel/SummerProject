@@ -11,6 +11,7 @@ public class StartGame : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(playersManager);
-        //SceneManager.LoadScene("Menu");
+        
+        SceneManager.LoadScene("Menu");
     }
 }

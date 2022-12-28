@@ -13,7 +13,6 @@ public class MainMenu : MonoBehaviour
 
     public void OnEnable()
     {
-        //Cleanup();  // Gets rid of NetworkManagers not being used (if player disconnected from a game)
         multiplayerButton.Select();
     }
 
@@ -32,13 +31,5 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    private void Cleanup()
-    {
-        if (NetworkManager.Singleton != null)
-        {
-            Destroy(NetworkManager.Singleton.gameObject);
-        }
     }
 }
