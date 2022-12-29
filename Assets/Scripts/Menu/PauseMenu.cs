@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("References")]
     private PlayerInputActions playerInputActions;
+    private PlayerStats stats;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject pauseMenu;
 
@@ -16,10 +17,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private TMP_Text joinCodeField;
     [SerializeField] private TMP_Text playerCountField;
 
-    public void Pause(PlayerInputActions playerInputActions)
+    public void Pause(PlayerInputActions playerInputActions, PlayerStats stats)
     {
         this.playerInputActions = playerInputActions;
         playerInputActions.Player.Disable();
+
+        this.stats = stats;
+        stats.isPaused = true;
 
         joinCodeField.enabled = false;
         playerCountField.enabled = false;
@@ -29,6 +33,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume()
     {
+        stats.isPaused = false;
+
         playerInputActions.Player.Enable();
 
         joinCodeField.enabled = true;

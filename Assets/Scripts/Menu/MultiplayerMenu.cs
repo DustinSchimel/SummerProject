@@ -112,7 +112,11 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void GoBack()
     {
-        StopCoroutine(errorCoroutine);
+        if (errorCoroutine != null)
+        {
+            StopCoroutine(errorCoroutine);
+        }
+        
         connectingText.SetActive(false);
         invalidCodeText.SetActive(false);
 

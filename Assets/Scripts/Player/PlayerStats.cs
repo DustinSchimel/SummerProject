@@ -19,6 +19,8 @@ public class PlayerStats : NetworkBehaviour
     [Header("Other Variables")]
     public float respawnTime = 1f;
     private bool respawning = false;
+
+    public bool isPaused = false;
     //private string username;
 
     void Start()
@@ -39,6 +41,8 @@ public class PlayerStats : NetworkBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         if (HP == 0)
         {
             if (respawning == false)
@@ -85,7 +89,12 @@ public class PlayerStats : NetworkBehaviour
         // Fade away from the black (maybe do this)
 
         playerController.setGravity(gravityScale);
-        playerController.EnableControls();
+
+        // The player can still die while paused, so don't enable controls if they are paused
+        if (!isPaused)
+        {
+            playerController.EnableControls();
+        }
 
         HP = 1;
         respawning = false;

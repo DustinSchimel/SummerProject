@@ -239,6 +239,6 @@ public class PlayerController : NetworkBehaviour
     {
         //if (!IsOwner) return;
 
-        pauseMenu.Pause(playerInputActions);
+        pauseMenu.Pause(playerInputActions, GetComponent<PlayerStats>());
     }
 }
