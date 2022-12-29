@@ -186,6 +186,8 @@ public class MultiplayerMenu : MonoBehaviour
             NetworkManager.Singleton.StartHost();
 
             SaveUsername();
+
+            //FindObjectOfType<PlayerStats>().updateUsername(usernameInput.text);
         }
         catch (RelayServiceException e)
         {
@@ -211,6 +213,8 @@ public class MultiplayerMenu : MonoBehaviour
             NetworkManager.Singleton.StartClient();
 
             SaveUsername();
+
+            //FindObjectOfType<PlayerStats>().updateUsername(usernameInput.text);
         }
         catch (RelayServiceException e)
         {
