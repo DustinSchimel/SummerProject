@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
+using Unity.Netcode;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : NetworkBehaviour
 {
     [Header("References")]
     private Rigidbody2D rb;
     private Transform respawnPoint;
     private PlayerController playerController;
     private Animator animator;
+    public TMP_Text usernameText;
 
     [Header("Stats")]
     public int HP = 1;
@@ -16,14 +19,22 @@ public class PlayerStats : MonoBehaviour
     [Header("Other Variables")]
     public float respawnTime = 1f;
     private bool respawning = false;
+    //private string username;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
-        //playerController = GetComponent<MultiplayerPlayerController>();
         animator = GetComponentInChildren<Animator>();
         gravityScale = rb.gravityScale;
+        //usernameText.text = username;
+    }
+
+    public void updateUsername(string name)
+    {
+        if (!IsOwner) return;
+        
+        usernameText.text = name;
     }
 
     void Update()

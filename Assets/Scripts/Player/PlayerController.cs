@@ -48,7 +48,6 @@ public class PlayerController : NetworkBehaviour
         //if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        //sprite = GetComponent<SpriteRenderer>();
         sprite = GetComponentInChildren<SpriteRenderer>();
 
         facingRight = true;
