@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
         //playerController = GetComponent<MultiplayerPlayerController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         gravityScale = rb.gravityScale;
     }
 

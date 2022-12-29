@@ -47,8 +47,9 @@ public class PlayerController : NetworkBehaviour
     {
         //if (!IsOwner) return;   // If this script is not attached to the owner, do nothing
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        //sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
 
         facingRight = true;
 
@@ -166,9 +167,9 @@ public class PlayerController : NetworkBehaviour
 
     private void Flip()
     {
-        Vector2 currentScale = gameObject.transform.localScale;
+        Vector2 currentScale = sprite.transform.localScale;
         currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
+        sprite.transform.localScale = currentScale;
 
         facingRight = !facingRight;
     }
