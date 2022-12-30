@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : NetworkBehaviour
     private PlayerInputActions playerInputActions;
     private SpriteRenderer sprite;
     private Animator animator;
+    [SerializeField] private TrailRenderer tr;
 
     [Header("Direction")]
     public bool facingRight;
@@ -37,6 +39,15 @@ public class PlayerController : NetworkBehaviour
     [Space(10)]
     private bool isJumping;
 
+    [Header("Dash")]
+    [SerializeField] private bool dashUnlocked;
+    private bool canDash;
+    private bool isDashing;
+    [SerializeField] private float dashForce;
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashCooldown;
+
+
     [Header("Checks")]
     public Transform groundCheckPoint;
     public Vector2 groundCheckSize;
@@ -51,6 +62,7 @@ public class PlayerController : NetworkBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
 
         facingRight = true;
+        canDash = true;
 
         gravityScale = rb.gravityScale;
 
@@ -60,13 +72,14 @@ public class PlayerController : NetworkBehaviour
         playerInputActions.Player.Jump.performed += JumpPressed;
         playerInputActions.Player.Jump.canceled += JumpReleased;
         playerInputActions.Player.Pause.performed += Pause;
+        playerInputActions.Player.Dash.performed += Dash;
 
         pauseMenu = GameObject.Find("Pause").GetComponent<PauseMenu>();
     }
 
     private void Update()
     {
-        if (!IsOwner) return;
+        if (!IsOwner || isDashing) return;
 
         #region Checks
         if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer)) // checks to see if the player's ground hitbox is overlaping with the ground layer
@@ -110,7 +123,7 @@ public class PlayerController : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!IsOwner) return;
+        if (!IsOwner || isDashing) return;
 
         Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
@@ -186,6 +199,58 @@ public class PlayerController : NetworkBehaviour
             isJumping = true;
         }
         */
+    }
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        if (canDash && dashUnlocked)
+        {
+            StartCoroutine(DashCoroutine());
+        }
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+        Vector2 moveInput = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        canDash = false;
+        isDashing = true;
+
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        tr.emitting = true;
+
+        // Check which way the player is moving and dash that way
+        if (moveInput.x > 0)
+        {
+            //rb.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(sprite.transform.localScale.x  * dashForce * 1.5f, 0f);
+        }
+        else if (moveInput.x < 0)
+        {
+            rb.velocity = new Vector2(sprite.transform.localScale.x  * dashForce * 1.5f, 0f);
+        }
+        else if (moveInput.y > 0)
+        {
+            rb.velocity = new Vector2(0f, dashForce);
+        }
+        else if (moveInput.y < 0)
+        {
+            rb.velocity = new Vector2(0f, dashForce);
+        }
+        else
+        {
+            // If the player is not moving any specific way, check which way they are facing and dash that way
+            rb.velocity = new Vector2(sprite.transform.localScale.x * dashForce * 1.5f, 0f);
+        }
+
+        yield return new WaitForSeconds(dashTime);
+        tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        rb.velocity = new Vector2(0f, 0f);
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
     private void Jump()
