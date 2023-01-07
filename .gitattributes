@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Bought assets
+/[Aa]ssets/AllIn1SpriteShader export-ignore
+/[Aa]ssets/Feel export-ignore
+
+/[Aa]ssets/AllIn1SpriteShader.meta export-ignore
+/[Aa]ssets/Feel.meta export-ignore
