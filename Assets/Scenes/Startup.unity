@@ -559,7 +559,7 @@ MonoBehaviour:
   RunInBackground: 1
   LogLevel: 1
   NetworkConfig:
-    ProtocolVersion: 2
+    ProtocolVersion: 3
     NetworkTransport: {fileID: 1615421567}
     PlayerPrefab: {fileID: 5949363088032928965, guid: 0c6650942a311f84e80aa03e21ae2cb3, type: 3}
     NetworkPrefabs:
