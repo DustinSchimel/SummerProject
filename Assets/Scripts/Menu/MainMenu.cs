@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,17 +10,22 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject multiplayerCanvas;
 
-    [SerializeField] private Button multiplayerButton;
+    [SerializeField] private Button singleplayerButton;
 
     public void OnEnable()
     {
-        multiplayerButton.Select();
+        singleplayerButton.Select();
     }
 
     public void GoToMultiplayer()
     {
         mainMenu.SetActive(false);    // Disables the main menu
         multiplayerCanvas.SetActive(true);  // Enables the canvas, which connects to the server
+    }
+
+    public void GoToSingleplayer()
+    {
+        SceneManager.LoadScene("timetrial", LoadSceneMode.Single);
     }
 
     public void GoToSettings()

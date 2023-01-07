@@ -122,8 +122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5410683703106452552}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+      - m_Target: {fileID: 1580480395136008523}
+        m_TargetAssemblyTypeName: MPPauseMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -661,8 +661,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5410683703106452552}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+      - m_Target: {fileID: 1580480395136008523}
+        m_TargetAssemblyTypeName: MPPauseMenu, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 2013322152833536207}
   - component: {fileID: 2013322152833536204}
   m_Layer: 5
-  m_Name: UI
+  m_Name: MP UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1516,7 +1516,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5410683703106452552}
+      - m_Target: {fileID: 1580480395136008523}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: LoadOptionsMenu
         m_Mode: 1
@@ -1650,8 +1650,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5410683703106452552}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+      - m_Target: {fileID: 1580480395136008523}
+        m_TargetAssemblyTypeName: MPPauseMenu, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
@@ -1671,7 +1671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7757791128501731450}
-  - component: {fileID: 5410683703106452552}
+  - component: {fileID: 1580480395136008523}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -1700,7 +1700,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1820, y: -1394}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5410683703106452552
+--- !u!114 &1580480395136008523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1709,7 +1709,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3667803272242903075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca983af80cbfb3346b33785425fade72, type: 3}
+  m_Script: {fileID: 11500000, guid: 521479af6bd14644ca662d7034b942ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 7468249317981804310}

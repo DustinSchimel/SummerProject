@@ -4,20 +4,33 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Netcode;
 
-public class PauseMenu : MonoBehaviour
+public abstract class PauseMenu : MonoBehaviour
 {
     [Header("References")]
-    private PlayerInputActions playerInputActions;
-    private PlayerStats stats;
-    [SerializeField] private GameObject optionsMenu;
-    [SerializeField] private GameObject pauseMenu;
+    protected PlayerInputActions playerInputActions;
+    protected MonoBehaviour stats;
+    [SerializeField] protected GameObject optionsMenu;
+    [SerializeField] protected GameObject pauseMenu;
 
-    [SerializeField] private Button resumeButton;
+    [SerializeField] protected Button resumeButton;
 
-    [SerializeField] private TMP_Text joinCodeField;
-    [SerializeField] private TMP_Text playerCountField;
+    [SerializeField] protected TMP_Text joinCodeField;
+    [SerializeField] protected TMP_Text playerCountField;
 
-    public void Pause(PlayerInputActions playerInputActions, PlayerStats stats)
+    public void Pause(PlayerInputActions playerInputActions, SPStats stats)
+    {
+        this.playerInputActions = playerInputActions;
+        playerInputActions.Player.Disable();
+
+        this.stats = stats;
+        stats.isPaused = true;
+
+        pauseMenu.SetActive(true);
+
+        resumeButton.Select();
+    }
+
+    public void Pause(PlayerInputActions playerInputActions, MPStats stats)
     {
         this.playerInputActions = playerInputActions;
         playerInputActions.Player.Disable();
@@ -31,30 +44,12 @@ public class PauseMenu : MonoBehaviour
 
         resumeButton.Select();
     }
-    public void Resume()
-    {
-        stats.isPaused = false;
 
-        playerInputActions.Player.Enable();
+    public abstract void Resume();
 
-        joinCodeField.enabled = true;
-        playerCountField.enabled = true;
-        pauseMenu.SetActive(false);
-    }
+    public abstract void LoadMainMenu();
 
-    public void LoadMainMenu()
-    {
-        NetworkManager.Singleton.Shutdown();
-
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void QuitGame()
-    {
-        NetworkManager.Singleton.Shutdown();
-
-        Application.Quit();
-    }
+    public abstract void QuitGame();
 
     public void LoadOptionsMenu()
     {

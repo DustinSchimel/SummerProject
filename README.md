@@ -34,15 +34,14 @@ https://user-images.githubusercontent.com/23300428/190955248-e1ad6d2c-9018-4991-
 # Todo
 
 - Settings
-	- Lefty support
-	- (stretch goal) Control remapping
+	- Control remapping
 	- Resolution changing
 	
 - Gameplay
+	- Item that resets dash
 	- Single player time trials
 	- Multiplayer races
-	- Dash mechanic
-	- Wall jump mechanic
+	- Wall jump mechanic (maybe)
 	- Boost blocks
 	- Color picker / random colors for players
 	- More levels

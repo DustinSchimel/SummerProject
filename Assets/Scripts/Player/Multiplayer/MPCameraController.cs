@@ -1,11 +1,8 @@
 using Cinemachine;
-using Unity.Netcode;
 
-public class PlayerCameraController : NetworkBehaviour
+public class MPCameraController : CameraController
 {
-    private CinemachineVirtualCamera vCam;
-
-    public void Start()
+    public override void Start()
     {
         if (!IsOwner) return;
 

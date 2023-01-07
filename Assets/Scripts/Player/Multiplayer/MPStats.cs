@@ -1,35 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using Unity.Netcode;
 
-public class PlayerStats : NetworkBehaviour
+public class MPStats : Stats
 {
     [Header("References")]
-    private Rigidbody2D rb;
-    private Transform respawnPoint;
-    private PlayerController playerController;
-    private Animator animator;
+    private MPController playerController;
     public TMP_Text usernameText;
 
     [Header("Stats")]
-    public int HP = 1;
-    private float gravityScale;
+    private string username;
 
-    [Header("Other Variables")]
-    public float respawnTime = 1f;
-    private bool respawning = false;
-
-    public bool isPaused = false;
-    //private string username;
-
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<MPController>();
         animator = GetComponentInChildren<Animator>();
         gravityScale = rb.gravityScale;
-        //usernameText.text = username;
+        usernameText.text = username;
     }
 
     public void updateUsername(string name)
@@ -39,7 +27,7 @@ public class PlayerStats : NetworkBehaviour
         usernameText.text = name;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (!IsOwner) return;
 
@@ -65,22 +53,11 @@ public class PlayerStats : NetworkBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 6)    // Spikes
-        {
-            // -1 HP from player
-            HP = HP - 1;
-
-            // Make player invincible for a few seconds if they're still alive
-        }
-    }
-
-    IEnumerator RespawnPlayer()
+    protected override IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(respawnTime);
 
-        respawnPoint = rb.GetComponent<RespawnPoint>().respawnPoint;    // Updates the saved respawn point if the player's respawn point changed
+        respawnPoint = rb.GetComponent<MPRespawnPoint>().respawnPoint;    // Updates the saved respawn point if the player's respawn point changed
         rb.gameObject.transform.position = new Vector2(respawnPoint.position.x, respawnPoint.position.y + .005f);   // Teleports the player, and fixes issue with not being able to jump after death
         rb.position = respawnPoint.position;
 
@@ -98,5 +75,6 @@ public class PlayerStats : NetworkBehaviour
 
         HP = 1;
         respawning = false;
+        playerController.onDeath();
     }
 }
