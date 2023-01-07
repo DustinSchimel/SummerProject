@@ -74,6 +74,10 @@ crashlytics-build.properties
 # Bought assets
 /[Aa]ssets/AllIn1SpriteShader
 /[Aa]ssets/Feel
+/[Aa]ssets/Art
+/[Aa]ssets/Fonts
 
 /[Aa]ssets/AllIn1SpriteShader.meta
 /[Aa]ssets/Feel.meta
+/[Aa]ssets/Fonts.meta
+/[Aa]ssets/Art.meta
